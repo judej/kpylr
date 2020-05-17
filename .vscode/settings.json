@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "c:\\Users\\judej\\source\\repos\\kpylr\\.venv\\Scripts\\python.exe",
+    "python.formatting.provider": "black"
+}
