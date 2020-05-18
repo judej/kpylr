@@ -1,4 +1,4 @@
-from ktoken import SyntaxToken, SyntaxKind
+from knode import SyntaxToken, SyntaxKind
 
 class Lexer:
     def __init__(cls, text: str):
@@ -54,7 +54,8 @@ class Lexer:
             self.next()
             return SyntaxToken(')', self.position-1, SyntaxKind.closeparanthesis, None)
 
-        return SyntaxToken(self.text[self.position:self.position+1], self.current(), SyntaxKind.badtoken, None)
+        self.next()
+        return SyntaxToken(self.text[self.position-1:self.position], self.current(), SyntaxKind.badtoken, None)
     
     def current(self) -> str:
         if self.position >= len(self.text):
