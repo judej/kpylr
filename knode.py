@@ -28,6 +28,15 @@ class SyntaxNode(ABC):
     @abstractmethod
     def getChildren(self) -> List[Any]: pass
 
+    @property
+    @abstractmethod
+    def getLastChild(self) -> Any: pass
+
+
+class ExpressionSyntax(SyntaxNode):
+    def __init__(cls) -> None:
+        return
+
 class SyntaxToken(SyntaxNode):
     def __init__(cls, text: str, position: int, kind: SyntaxKind, value: Any) -> None:
         cls.text = text
@@ -38,14 +47,13 @@ class SyntaxToken(SyntaxNode):
         return
 
     def getChildren(self) -> List[SyntaxNode]: 
-        yield None
+        yield self.getLastChild()
 
+    def getLastChild(self) -> Any: 
+        yield None
+    
     def kind(self) -> SyntaxKind:
         return self.kind          
-
-class ExpressionSyntax(SyntaxNode):
-    def __init__(cls) -> None:
-        return
 
 class NumberExpressionSyntax(ExpressionSyntax):
     def __init__(cls, numberToken:SyntaxToken) -> None:
@@ -56,7 +64,10 @@ class NumberExpressionSyntax(ExpressionSyntax):
         return SyntaxKind.number
     
     def getChildren(self) -> List[SyntaxNode]: 
-         yield self.numberToken
+         yield self.getLastChild()
+
+    def getLastChild(self) -> Any: 
+        yield self.numberToken
 
 class BinaryExpressionSyntax(ExpressionSyntax):
 
@@ -70,6 +81,9 @@ class BinaryExpressionSyntax(ExpressionSyntax):
         return SyntaxKind.binaryexpression
     
     def getChildren(self) -> List[SyntaxNode]: 
-         yield self.operatorToken
          yield self.left
-         yield self.right
+         yield self.operatorToken
+         yield self.getLastChild()
+
+    def getLastChild(self) -> Any: 
+        yield self.right

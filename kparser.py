@@ -43,9 +43,9 @@ class Parser:
             (self.current().kind == SyntaxKind.subtraction):
             operatorToken = self.nextToken()
             right = self.parsePrimaryExpression()
-            primary = BinaryExpressionSyntax(left, operatorToken, right)
+            left = BinaryExpressionSyntax(left, operatorToken, right)
 
-        return primary
+        return left
 
     def parsePrimaryExpression(self) -> ExpressionSyntax:
         numberToken = self.matchToken(SyntaxKind.number)

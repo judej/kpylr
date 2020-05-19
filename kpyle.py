@@ -5,25 +5,25 @@ from knode import SyntaxNode, SyntaxToken, SyntaxKind
 # Take input
 # lexer => tokens -> dump()-> list of tokens
 # parser => expression trees dump() -> expression tree
-# ├── a-first.html
-# ├── b-second.html
-# ├── subfolder
-# │   ├── rea
+# ├── readme.html
+# │   ├── code.cpp
+# │   └── code.h
 
-def prettyPrint(node: SyntaxNode, indent: str = '') -> None:
-    
+def prettyPrint(node: SyntaxNode, indent: str = '', isLast:bool = False) -> None:
+    marker = '└──' if isLast else '├──'
+    print('{}{}{}'.format(indent, marker, node.kind))
+
     if isinstance(node, SyntaxToken):
-        operator = (node.kind == SyntaxKind.addition) or (node.kind == SyntaxKind.subtraction) or \
-            (node.kind == SyntaxKind.division) or (node.kind == SyntaxKind.multiplication) 
-        branch = "" if operator else "├──"
-        print('{}{}{}, value: {}'.format(indent, branch, node.kind, node.value))
-        if operator: 
-            indent += "    " 
+        print('{}{}\r\n'.format('  ', node.value))
     
-    if hasattr(node, 'getChildren'):
-        for child in node.getChildren():
-            prettyPrint(child, indent)
-    return
+    indent += '    ' if isLast else '│    '
+
+    lastChild = node.getLastChild()
+
+    for child in node.getChildren():
+        if isinstance(child, SyntaxNode):
+            prettyPrint(child, indent, child == lastChild)
+   
 
 inputText = input('>')
 parser = Parser(inputText,0)
