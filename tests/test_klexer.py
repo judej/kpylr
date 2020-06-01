@@ -7,6 +7,9 @@ class test_klexer:
     badInputs = ['3~4*5', '2&1']
     input3 = '(3+4)*5'
 
+    def test_create_lexer():
+        pass
+
     def test_next_token_simple(self) :
         lexer = Lexer(self.input1)
         assert(lexer.nextToken().value == 3)
@@ -22,17 +25,17 @@ class test_klexer:
         lexer = Lexer(input)
         with pytest.raises(LexerExceptionBadToken):
             token = lexer.nextToken()
-            while (token.kind != SyntaxKind.endoffile):
+            while (token.kind() != SyntaxKind.endoffile):
                 token = lexer.nextToken()
 
-
     def test_current(self):
-        assert True
+        lexer = Lexer('a+b')
+        assert (lexer.current() == 'a')
+        lexer.next()
+        assert (lexer.current() == '+')
+        lexer.next()
+        assert (lexer.current() == 'b')
+        lexer.next()
+        assert (lexer.current() == '\0')
 
-
-    def test_next(self):
-        assert True
-
-    def test_dump(self):
-        assert True
-        
+       

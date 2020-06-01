@@ -1,3 +1,5 @@
+from kevaluator import Evaluator
+from ksyntaxtree import SyntaxTree
 from kparser import Parser
 from knode import SyntaxNode, SyntaxToken, SyntaxKind
 
@@ -9,25 +11,34 @@ from knode import SyntaxNode, SyntaxToken, SyntaxKind
 # │   ├── code.cpp
 # │   └── code.h
 
-def prettyPrint(node: SyntaxNode, indent: str = '', isLast:bool = False) -> None:
-    marker = '└──' if isLast else '├──'
-    print('{}{}{}'.format(indent, marker, node.kind))
+def prettyPrint(node: SyntaxNode, indent: str = '', isLast:bool = True) -> None:
+    if not node:
+        return
 
-    if isinstance(node, SyntaxToken):
-        print('{}{}\r\n'.format('  ', node.value))
+    marker = '└──' if isLast else '├──'
+
+    if (isinstance(node, SyntaxToken) and (node.value)):
+        print(f'{indent}{marker}{node.kind()}{"  "}{node.value}')
+    else: 
+        print(f'{indent}{marker}{node.kind()}')
     
     indent += '    ' if isLast else '│    '
 
     lastChild = node.getLastChild()
 
     for child in node.getChildren():
-        if isinstance(child, SyntaxNode):
-            prettyPrint(child, indent, child == lastChild)
+        prettyPrint(child, indent, child == lastChild)
    
 
 inputText = input('>')
 parser = Parser(inputText,0)
-expression = parser.parse()
-prettyPrint(expression)
+syntaxTree = parser.parse()
+prettyPrint(syntaxTree.root)
+if len(syntaxTree.diagnostics) > 0:
+    print(syntaxTree.diagnostics)
+else: 
+    evaluator = Evaluator(syntaxTree.root)
+    value = evaluator.Evaluate()
+    print(f"Result: {value}")
 
 

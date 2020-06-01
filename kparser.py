@@ -1,21 +1,28 @@
+from ksyntaxtree import SyntaxTree
 from knode import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax
 from klexer import Lexer
 from knode import SyntaxToken, SyntaxKind
 
 class Parser:
     tokens = []
-    def __init__(cls, text: str, position: int) -> None:
-        cls.text = text
-        cls.position = position
+    diagnostics = []
+    def __init__(self, text: str, position: int) -> None:
+        self.text = text
+        self.position = position
 
         lex = Lexer(text)
+        if(len(lex.diagnostics)>0):
+            self.diagnostics.append(lex.diagnostics)
         token = lex.nextToken()
 
-        while token.kind != SyntaxKind.endoffile:
-            if (token.kind != SyntaxKind.badtoken) and \
-               (token.kind != SyntaxKind.whitespace):
-               cls.tokens.append(token)
+        while True:
+            if (token.kind() != SyntaxKind.badtoken) and \
+               (token.kind() != SyntaxKind.whitespace):
+               self.tokens.append(token)
+            if token.kind() == SyntaxKind.endoffile:
+                break
             token = lex.nextToken()
+
 
     def peek(self, offset: int) -> SyntaxToken:
         if(self.position + offset >= len(self.tokens)):
@@ -32,20 +39,36 @@ class Parser:
         return _current
         
     def matchToken(self, kind: SyntaxKind) -> SyntaxToken:
-        if self.current().kind == kind:
+        if self.current().kind() == kind:
             return self.nextToken()
-        return SyntaxToken(None, self.current().postion, kind, None)
+        self.diagnostics.append(f"ERROR: unexpected token, Expected {kind}, found {self.current().kind()}")
+        return SyntaxToken(None, 0, kind, None)
 
-    def parse(self) -> ExpressionSyntax:
-        primary = None
+    def parse(self) -> SyntaxTree:
+        return SyntaxTree(self.diagnostics, self.ParseTerm(), self.matchToken(SyntaxKind.endoffile))
+
+    
+    def ParseTerm(self) -> ExpressionSyntax:
+        left = self.ParseFactor()
+        while (self.current().kind() == SyntaxKind.addition) or \
+            (self.current().kind() == SyntaxKind.subtraction):
+            operatorToken = self.nextToken()
+            right = self.ParseFactor()
+            left = BinaryExpressionSyntax(left, operatorToken, right)
+
+        return left
+
+    def ParseFactor(self) -> ExpressionSyntax:
         left = self.parsePrimaryExpression()
-        while (self.current().kind == SyntaxKind.addition) or \
-            (self.current().kind == SyntaxKind.subtraction):
+        while (self.current().kind() == SyntaxKind.division) or \
+            (self.current().kind() == SyntaxKind.multiplication):
             operatorToken = self.nextToken()
             right = self.parsePrimaryExpression()
             left = BinaryExpressionSyntax(left, operatorToken, right)
 
         return left
+
+
 
     def parsePrimaryExpression(self) -> ExpressionSyntax:
         numberToken = self.matchToken(SyntaxKind.number)

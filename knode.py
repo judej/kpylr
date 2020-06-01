@@ -3,6 +3,8 @@ from enum import Enum
 from typing import Any, List
 
 class SyntaxKind(Enum):
+    '''Kinds of Syntax Tokens
+    '''
     number = 1,
     string = 2,
     addition = 3,
@@ -12,78 +14,134 @@ class SyntaxKind(Enum):
     whitespace = 7,
     openparanthesis = 8,
     closeparanthesis = 9,
-    endoffile = 10,
-    badtoken = 11,
-    binaryexpression = 12,
+    badtoken = 10,
+    binaryexpression = 11,
+    paranthesizedexpression =12,
+    endoffile = 13
+
 
 class SyntaxNode(ABC):
-    def __init__(cls) -> None:
+    '''Structure to support a Syntax Token Node. 
+    :param ABC: Since this will be an abstract base class - inheriting from ABC
+    '''
+    def __init__(self) -> None:
         return
     
     @property
     @abstractmethod
     def kind(self) -> SyntaxKind: pass
+    '''Every derived class must state what kind of token it is.
+    '''
 
     @property
     @abstractmethod
     def getChildren(self) -> List[Any]: pass
-
-    @property
-    @abstractmethod
-    def getLastChild(self) -> Any: pass
-
-
-class ExpressionSyntax(SyntaxNode):
-    def __init__(cls) -> None:
-        return
+    '''A node may have children
+    '''
 
 class SyntaxToken(SyntaxNode):
-    def __init__(cls, text: str, position: int, kind: SyntaxKind, value: Any) -> None:
-        cls.text = text
-        cls.position = position
-        cls.kind = kind
-        cls.value = value
+    '''Base class for all Syntax Tokens
+    '''
+    def __init__(self, text: str, position: int, kind: SyntaxKind, value: Any) -> None:
+        '''Create a Syntax token
 
+        :text: The line to be tokenized
+        :position: position of the token in the line
+        :kind: the kind of syntax token
+        :value: The value of the token - could be a string or number etc
+        '''
+        self.text = text
+        self.position = position
+        self.tokenkind = kind
+        self.value = value
         return
 
     def getChildren(self) -> List[SyntaxNode]: 
-        yield self.getLastChild()
-
-    def getLastChild(self) -> Any: 
         yield None
     
     def kind(self) -> SyntaxKind:
-        return self.kind          
+        return self.tokenkind   
+
+    def getLastChild(self) -> SyntaxNode:
+        return None
+
+class ExpressionSyntax(SyntaxNode, ABC):
+    def __init__(self) -> None:
+        return
+
+    @property
+    @abstractmethod    
+    def getLastChild(self) -> SyntaxNode:
+        pass
 
 class NumberExpressionSyntax(ExpressionSyntax):
-    def __init__(cls, numberToken:SyntaxToken) -> None:
-        cls.numberToken = numberToken
+    '''ExpressionSyntax(Syntax Node) that is used for a number expression e.g. '2' 
+    :param ExpressionSyntax: ExpressionSyntax(SyntaxNode)
+    '''
+    def __init__(self, numberToken:SyntaxToken) -> None:
+        self.numberToken = numberToken
         return
     
     def kind(self):
         return SyntaxKind.number
     
     def getChildren(self) -> List[SyntaxNode]: 
-         yield self.getLastChild()
-
-    def getLastChild(self) -> Any: 
         yield self.numberToken
 
-class BinaryExpressionSyntax(ExpressionSyntax):
+    def getLastChild(self) -> SyntaxNode:
+        return self.numberToken
 
-    def __init__(cls, left: ExpressionSyntax, operatorToken:SyntaxToken, right: ExpressionSyntax )-> None:
-        cls.left = left
-        cls.operatorToken = operatorToken
-        cls.right = right
+class BinaryExpressionSyntax(ExpressionSyntax):
+    '''Binary expression syntax node that has a left SyntaxNode, an operatorToken and a right syntax node
+    '''
+    def __init__(self, left: ExpressionSyntax, operatorToken:SyntaxToken, right: ExpressionSyntax )-> None:
+        '''Constructor for BinaryExpressionSyntax - left, operator and right
+
+        :param left: An expression Syntax (could be another Binary Expression)
+        :param operatorToken: Operator token 
+        :param right: An expression Syntax (could be another Binary Expression)
+        '''
+        self.left = left
+        self.operatorToken = operatorToken
+        self.right = right
         return
     
     def kind(self):
         return SyntaxKind.binaryexpression
     
-    def getChildren(self) -> List[SyntaxNode]: 
-         yield self.left
-         yield self.operatorToken
-         yield self.getLastChild()
+    def getChildren(self) -> List[SyntaxNode]:
+        '''returns the children of a binary expression 
 
-    def getLastChild(self) -> Any: 
+        :return: iterable of left, operator and right of the binary expression
+        :rtype: List[SyntaxNode]
+        :rtype: Iterator[List[SyntaxNode]]
+        '''
+        yield self.left
+        yield self.operatorToken
         yield self.right
+    
+    def getLastChild(self) -> SyntaxNode:
+        return self.right
+
+class ParanthesizedExpressionSyntax(ExpressionSyntax):
+    def __init__(self, openParansToken: SyntaxToken, expression: ExpressionSyntax, closeParansToken: SyntaxToken) -> None:
+        self.openParansToken = openParansToken
+        self.expression = expression
+        self.closeParansToken = closeParansToken
+
+    def kind(self):
+        return SyntaxKind.ParanthesizedExpression
+    
+    def getChildren(self) -> List[SyntaxNode]:
+        '''returns the children of a binary expression 
+
+        :return: iterable of left, operator and right of the binary expression
+        :rtype: List[SyntaxNode]
+        :rtype: Iterator[List[SyntaxNode]]
+        '''
+        yield self.openParansToken
+        yield self.expression
+        yield self.closeParansToken
+    
+    def getLastChild(self) -> SyntaxNode:
+        return self.closeParansToken
