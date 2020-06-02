@@ -11,35 +11,34 @@ from codeanalysis.node import SyntaxNode, SyntaxToken, SyntaxKind
 # │   ├── code.cpp
 # │   └── code.h
 
-def prettyPrint(node: SyntaxNode, indent: str = '', isLast:bool = True) -> None:
+
+def pretty_print(node: SyntaxNode, indent: str = "", isLast: bool = True) -> None:
     if not node:
         return
 
-    marker = '└──' if isLast else '├──'
+    marker = "└──" if isLast else "├──"
 
-    if (isinstance(node, SyntaxToken) and (node.value)):
+    if isinstance(node, SyntaxToken) and (node.value):
         print(f'{indent}{marker}{node.kind()}{"  "}{node.value}')
-    else: 
-        print(f'{indent}{marker}{node.kind()}')
-    
-    indent += '    ' if isLast else '│    '
+    else:
+        print(f"{indent}{marker}{node.kind()}")
 
-    lastChild = node.getLastChild()
+    indent += "    " if isLast else "│    "
 
-    for child in node.getChildren():
-        prettyPrint(child, indent, child == lastChild)
-   
+    lastChild = node.get_last_child()
+
+    for child in node.get_children():
+        pretty_print(child, indent, child == lastChild)
+
 
 while True:
-    inputText = input('>')
-    parser = Parser(inputText,0)
-    syntaxTree = parser.parse()
-    prettyPrint(syntaxTree.root)
-    if len(syntaxTree.diagnostics) > 0:
-        print(syntaxTree.diagnostics)
-    else: 
-        evaluator = Evaluator(syntaxTree.root)
-        value = evaluator.Evaluate()
+    inputText = input(">")
+    parser = Parser(inputText, 0)
+    syntax_tree = parser.parse()
+    pretty_print(syntax_tree.root)
+    if len(syntax_tree.diagnostics) > 0:
+        print(syntax_tree.diagnostics)
+    else:
+        evaluator = Evaluator(syntax_tree.root)
+        value = evaluator.evaluate()
         print(f"Result: {value}")
-
-

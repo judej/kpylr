@@ -9,13 +9,14 @@ class Lexer:
     :return: [description]
     :rtype: [type]
     """
+
     diagnostics = []
 
     def __init__(self, text: str):
         self.text = text
         self.position = 0
 
-    def nextToken(self) -> SyntaxToken:
+    def next_token(self) -> SyntaxToken:
         """Returns the next Syntax token. Currently only supports  +, -, *, /, (, ), <whitespace>
 
         :raises LexerExceptionBadToken: [description]
@@ -36,7 +37,9 @@ class Lexer:
             try:
                 tokenvalue = int(tokentext)
             except ValueError as ex:
-                self.diagnostics.append(f"ERROR: Lexer:NextToken: the token {tokentext} cannot be represented as an int")
+                self.diagnostics.append(
+                    f"ERROR: Lexer:NextToken: the token {tokentext} cannot be represented as an int"
+                )
 
             return SyntaxToken(tokentext, start, SyntaxKind.number, tokenvalue)
 
@@ -77,7 +80,9 @@ class Lexer:
                 ")", self.position - 1, SyntaxKind.closeparanthesis, None
             )
         else:
-            self.diagnostics.append(f"ERROR: Lexer:NextToken: bad character in input: {self.current()}")
+            self.diagnostics.append(
+                f"ERROR: Lexer:NextToken: bad character in input: {self.current()}"
+            )
             raise LexerExceptionBadToken()
 
         self.next()
@@ -95,7 +100,7 @@ class Lexer:
         :rtype: str
         """
         if self.position >= len(self.text):
-            return '\0'
+            return "\0"
         return self.text[self.position]
 
     def next(self) -> None:
@@ -103,7 +108,9 @@ class Lexer:
         """
         self.position += 1
 
+
 class LexerExceptionBadToken(Exception):
     """Exception thrown when a lexed token is bad
     """
+
     pass
