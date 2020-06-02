@@ -1,5 +1,5 @@
 import pytest
-from node import ExpressionSyntax, SyntaxKind, SyntaxNode, SyntaxToken
+from ..node import ExpressionSyntax, SyntaxKind, SyntaxNode, SyntaxToken
 
 
 class TestSyntaxNode:

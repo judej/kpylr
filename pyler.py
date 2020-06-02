@@ -1,7 +1,7 @@
-from evaluator import Evaluator
-from syntaxtree import SyntaxTree
-from kparser import Parser
-from node import SyntaxNode, SyntaxToken, SyntaxKind
+from codeanalysis.evaluator import Evaluator
+from codeanalysis.syntaxtree import SyntaxTree
+from codeanalysis.parser import Parser
+from codeanalysis.node import SyntaxNode, SyntaxToken, SyntaxKind
 
 # minimal compiler
 # Take input

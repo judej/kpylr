@@ -1,5 +1,5 @@
 from typing import List
-from node import SyntaxToken, SyntaxKind
+from codeanalysis.node import SyntaxToken, SyntaxKind
 
 
 class Lexer:

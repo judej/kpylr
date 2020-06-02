@@ -1,14 +1,11 @@
-from node import SyntaxKind
 import pytest
-from lexer import Lexer, LexerExceptionBadToken
+from ..node import SyntaxKind
+from ..lexer import Lexer, LexerExceptionBadToken
 
-class test_klexer:
+class TestLexer:
     input1 = '3+4+5'
     badInputs = ['3~4*5', '2&1']
     input3 = '(3+4)*5'
-
-    def test_create_lexer():
-        pass
 
     def test_next_token_simple(self) :
         lexer = Lexer(self.input1)

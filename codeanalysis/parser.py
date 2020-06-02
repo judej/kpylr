@@ -1,7 +1,7 @@
-from syntaxtree import SyntaxTree
-from node import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax
-from lexer import Lexer
-from node import SyntaxToken, SyntaxKind
+from codeanalysis.syntaxtree import SyntaxTree
+from codeanalysis.node import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax
+from codeanalysis.lexer import Lexer
+from codeanalysis.node import SyntaxToken, SyntaxKind
 
 class Parser:
     tokens = []
