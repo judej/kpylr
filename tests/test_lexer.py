@@ -1,6 +1,6 @@
-from knode import SyntaxKind
+from node import SyntaxKind
 import pytest
-from klexer import Lexer, LexerExceptionBadToken
+from lexer import Lexer, LexerExceptionBadToken
 
 class test_klexer:
     input1 = '3+4+5'

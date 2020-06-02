@@ -1,7 +1,7 @@
-from ksyntaxtree import SyntaxTree
-from knode import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax
-from klexer import Lexer
-from knode import SyntaxToken, SyntaxKind
+from syntaxtree import SyntaxTree
+from node import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax
+from lexer import Lexer
+from node import SyntaxToken, SyntaxKind
 
 class Parser:
     tokens = []

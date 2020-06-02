@@ -1,4 +1,4 @@
-from knode import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax, SyntaxKind
+from node import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax, SyntaxKind
 class Evaluator:
     def __init__(self, root: ExpressionSyntax) -> None:
         self.root = root

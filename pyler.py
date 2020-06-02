@@ -1,7 +1,7 @@
-from kevaluator import Evaluator
-from ksyntaxtree import SyntaxTree
+from evaluator import Evaluator
+from syntaxtree import SyntaxTree
 from kparser import Parser
-from knode import SyntaxNode, SyntaxToken, SyntaxKind
+from node import SyntaxNode, SyntaxToken, SyntaxKind
 
 # minimal compiler
 # Take input

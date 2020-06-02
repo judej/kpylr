@@ -1,4 +1,4 @@
-from knode import ExpressionSyntax, SyntaxToken
+from node import ExpressionSyntax, SyntaxToken
 from typing import List
 
 

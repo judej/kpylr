@@ -1,5 +1,5 @@
 from typing import List
-from knode import SyntaxToken, SyntaxKind
+from node import SyntaxToken, SyntaxKind
 
 
 class Lexer:
