@@ -130,7 +130,7 @@ class ParanthesizedExpressionSyntax(ExpressionSyntax):
         self.closeParansToken = closeParansToken
 
     def kind(self):
-        return SyntaxKind.ParanthesizedExpression
+        return SyntaxKind.paranthesizedexpression
     
     def getChildren(self) -> List[SyntaxNode]:
         '''returns the children of a binary expression 

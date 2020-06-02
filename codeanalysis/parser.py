@@ -1,5 +1,5 @@
 from codeanalysis.syntaxtree import SyntaxTree
-from codeanalysis.node import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax
+from codeanalysis.node import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax, ParanthesizedExpressionSyntax
 from codeanalysis.lexer import Lexer
 from codeanalysis.node import SyntaxToken, SyntaxKind
 
@@ -41,36 +41,42 @@ class Parser:
     def matchToken(self, kind: SyntaxKind) -> SyntaxToken:
         if self.current().kind() == kind:
             return self.nextToken()
-        self.diagnostics.append(f"ERROR: unexpected token, Expected {kind}, found {self.current().kind()}")
+        self.diagnostics.append(f"ERROR: Parser:Matchoken: unexpected token, Expected {kind}, found {self.current().kind()}")
         return SyntaxToken(None, 0, kind, None)
 
-    def parse(self) -> SyntaxTree:
-        return SyntaxTree(self.diagnostics, self.ParseTerm(), self.matchToken(SyntaxKind.endoffile))
+    def parseexpression(self) -> ExpressionSyntax:
+        return self.parseterm()
 
+
+    def parse(self) -> SyntaxTree:
+        return SyntaxTree(self.diagnostics, self.parseterm(), self.matchToken(SyntaxKind.endoffile))
     
-    def ParseTerm(self) -> ExpressionSyntax:
-        left = self.ParseFactor()
+    def parseterm(self) -> ExpressionSyntax:
+        left = self.parsefactor()
         while (self.current().kind() == SyntaxKind.addition) or \
             (self.current().kind() == SyntaxKind.subtraction):
             operatorToken = self.nextToken()
-            right = self.ParseFactor()
+            right = self.parsefactor()
             left = BinaryExpressionSyntax(left, operatorToken, right)
 
         return left
 
-    def ParseFactor(self) -> ExpressionSyntax:
-        left = self.parsePrimaryExpression()
+    def parsefactor(self) -> ExpressionSyntax:
+        left = self.parseprimaryexpression()
         while (self.current().kind() == SyntaxKind.division) or \
             (self.current().kind() == SyntaxKind.multiplication):
             operatorToken = self.nextToken()
-            right = self.parsePrimaryExpression()
+            right = self.parseprimaryexpression()
             left = BinaryExpressionSyntax(left, operatorToken, right)
-
         return left
 
+    def parseprimaryexpression(self) -> ExpressionSyntax:
+        if self.current().kind() == SyntaxKind.openparanthesis:
+            left = self.nextToken()
+            expression = self.parseexpression()
+            right = self.matchToken(SyntaxKind.closeparanthesis)
+            return ParanthesizedExpressionSyntax(left, expression, right)
 
-
-    def parsePrimaryExpression(self) -> ExpressionSyntax:
         numberToken = self.matchToken(SyntaxKind.number)
         return NumberExpressionSyntax(numberToken)
 

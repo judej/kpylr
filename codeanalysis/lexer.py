@@ -36,7 +36,7 @@ class Lexer:
             try:
                 tokenvalue = int(tokentext)
             except ValueError as ex:
-                self.diagnostics.append(f"ERROR: the token {tokentext} cannot be represented as an int")
+                self.diagnostics.append(f"ERROR: Lexer:NextToken: the token {tokentext} cannot be represented as an int")
 
             return SyntaxToken(tokentext, start, SyntaxKind.number, tokenvalue)
 
@@ -77,7 +77,7 @@ class Lexer:
                 ")", self.position - 1, SyntaxKind.closeparanthesis, None
             )
         else:
-            self.diagnostics.append(f"ERROR: bad character in input: {self.current()}")
+            self.diagnostics.append(f"ERROR: Lexer:NextToken: bad character in input: {self.current()}")
             raise LexerExceptionBadToken()
 
         self.next()

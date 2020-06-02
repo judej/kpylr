@@ -1,4 +1,4 @@
-from codeanalysis.node import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax, SyntaxKind
+from codeanalysis.node import BinaryExpressionSyntax, ExpressionSyntax, NumberExpressionSyntax, ParanthesizedExpressionSyntax, SyntaxKind
 class Evaluator:
     def __init__(self, root: ExpressionSyntax) -> None:
         self.root = root
@@ -19,9 +19,10 @@ class Evaluator:
                 SyntaxKind.multiplication: left*right,
                 SyntaxKind.division: left/right,
             }
-            return switcher.get(expr.operatorToken.kind(), BadBinaryExpressionOperatorException())
-        else:
-            raise UnexpectedBinaryExpressionNodeException
+            return switcher.get(expr.operatorToken.kind(), 0)
+        elif isinstance(expr, ParanthesizedExpressionSyntax):
+            return self.EvaluateExpression(expr.expression)
+            
 
 class BadBinaryExpressionOperatorException(Exception):
     """Exception thrown when an invalid operator is found in a Binary Expression
