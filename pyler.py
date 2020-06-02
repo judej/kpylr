@@ -30,15 +30,16 @@ def prettyPrint(node: SyntaxNode, indent: str = '', isLast:bool = True) -> None:
         prettyPrint(child, indent, child == lastChild)
    
 
-inputText = input('>')
-parser = Parser(inputText,0)
-syntaxTree = parser.parse()
-prettyPrint(syntaxTree.root)
-if len(syntaxTree.diagnostics) > 0:
-    print(syntaxTree.diagnostics)
-else: 
-    evaluator = Evaluator(syntaxTree.root)
-    value = evaluator.Evaluate()
-    print(f"Result: {value}")
+while True:
+    inputText = input('>')
+    parser = Parser(inputText,0)
+    syntaxTree = parser.parse()
+    prettyPrint(syntaxTree.root)
+    if len(syntaxTree.diagnostics) > 0:
+        print(syntaxTree.diagnostics)
+    else: 
+        evaluator = Evaluator(syntaxTree.root)
+        value = evaluator.Evaluate()
+        print(f"Result: {value}")
 
 

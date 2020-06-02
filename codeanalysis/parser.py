@@ -4,11 +4,12 @@ from codeanalysis.lexer import Lexer
 from codeanalysis.node import SyntaxToken, SyntaxKind
 
 class Parser:
-    tokens = []
-    diagnostics = []
     def __init__(self, text: str, position: int) -> None:
         self.text = text
         self.position = position
+        self.tokens = []
+        self.diagnostics = []
+
 
         lex = Lexer(text)
         if(len(lex.diagnostics)>0):
