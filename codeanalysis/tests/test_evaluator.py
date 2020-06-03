@@ -1,7 +1,7 @@
-from codeanalysis.parser import Parser
 from typing import Union
 import pytest
-from ..evaluator import Evaluator
+from codeanalysis.parser import Parser
+from codeanalysis.evaluator import Evaluator
 
 
 class TestEvaluator:

@@ -1,5 +1,5 @@
 import pytest
-from ..node import SyntaxKind
+from codeanalysis.syntaxkind import SyntaxKind
 from ..lexer import Lexer, LexerExceptionBadToken
 
 
@@ -42,10 +42,13 @@ class TestLexer:
     )
     def test_next_token_bad(self, input):
         lexer = Lexer(input)
-        with pytest.raises(LexerExceptionBadToken):
-            token = lexer.next_token()
-            while token.kind() != SyntaxKind.endoffile:
-                token = lexer.next_token()
+        tokens = []
+        tokens.append(lexer.next_token())
+        while tokens[-1].kind() != SyntaxKind.endoffile:
+            tokens.append(lexer.next_token())
+            badtokens = list(filter(lambda t: t.kind() == SyntaxKind.badtoken, tokens))
+            assert(len(badtokens) == 1 )
+
 
     def test_current(self):
         lexer = Lexer("a+b")

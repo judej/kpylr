@@ -1,12 +1,12 @@
+from codeanalysis.expressionsyntax import ExpressionSyntax
 from codeanalysis.syntaxtree import SyntaxTree
-from codeanalysis.node import (
-    BinaryExpressionSyntax,
-    ExpressionSyntax,
-    NumberExpressionSyntax,
-    ParanthesizedExpressionSyntax,
-)
+from codeanalysis.paranthesizedexpressionsyntax import ParanthesizedExpressionSyntax
 from codeanalysis.lexer import Lexer
-from codeanalysis.node import SyntaxToken, SyntaxKind
+from codeanalysis.syntaxtoken import SyntaxToken
+from codeanalysis.syntaxkind import SyntaxKind
+from codeanalysis.numberexpressionsyntax import NumberExpressionSyntax
+from codeanalysis.binaryexpressionsyntax import BinaryExpressionSyntax
+
 
 
 class Parser:

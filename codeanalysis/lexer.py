@@ -1,5 +1,6 @@
 from typing import List
-from codeanalysis.node import SyntaxToken, SyntaxKind
+from codeanalysis.syntaxtoken import SyntaxToken
+from codeanalysis.syntaxkind import SyntaxKind
 
 
 class Lexer:
@@ -83,7 +84,6 @@ class Lexer:
             self.diagnostics.append(
                 f"ERROR: Lexer:NextToken: bad character in input: {self.current()}"
             )
-            raise LexerExceptionBadToken()
 
         self.next()
         return SyntaxToken(

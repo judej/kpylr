@@ -1,7 +1,9 @@
 from codeanalysis.evaluator import Evaluator
 from codeanalysis.syntaxtree import SyntaxTree
 from codeanalysis.parser import Parser
-from codeanalysis.node import SyntaxNode, SyntaxToken, SyntaxKind
+from codeanalysis.syntaxnode import SyntaxNode
+from codeanalysis.syntaxkind import SyntaxKind
+from codeanalysis.syntaxtoken import SyntaxToken
 
 # minimal compiler
 # Take input

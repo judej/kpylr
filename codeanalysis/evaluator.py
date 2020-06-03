@@ -1,11 +1,8 @@
-from codeanalysis.node import (
-    BinaryExpressionSyntax,
-    ExpressionSyntax,
-    NumberExpressionSyntax,
-    ParanthesizedExpressionSyntax,
-    SyntaxKind,
-)
-
+from codeanalysis.expressionsyntax import ExpressionSyntax
+from codeanalysis.syntaxkind import SyntaxKind
+from codeanalysis.numberexpressionsyntax import NumberExpressionSyntax
+from codeanalysis.binaryexpressionsyntax import BinaryExpressionSyntax
+from codeanalysis.paranthesizedexpressionsyntax import ParanthesizedExpressionSyntax
 
 class Evaluator:
     def __init__(self, root: ExpressionSyntax) -> None:
