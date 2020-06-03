@@ -4,6 +4,7 @@ from codeanalysis.numberexpressionsyntax import NumberExpressionSyntax
 from codeanalysis.binaryexpressionsyntax import BinaryExpressionSyntax
 from codeanalysis.paranthesizedexpressionsyntax import ParanthesizedExpressionSyntax
 
+
 class Evaluator:
     def __init__(self, root: ExpressionSyntax) -> None:
         self.root = root
@@ -14,7 +15,7 @@ class Evaluator:
     def evaluate_expression(self, expr: ExpressionSyntax) -> int:
         # we need to deal with Binary expressions and number expressions now
         if isinstance(expr, NumberExpressionSyntax):
-            return expr.numberToken.value
+            return expr.number_token.value
         elif isinstance(expr, BinaryExpressionSyntax):
             left = self.evaluate_expression(expr.left)
             right = self.evaluate_expression(expr.right)

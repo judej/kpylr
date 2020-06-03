@@ -3,7 +3,6 @@ from codeanalysis.expressionsyntax import ExpressionSyntax
 from codeanalysis.syntaxtoken import SyntaxToken
 
 
-
 class SyntaxTree:
     def __init__(
         self,
