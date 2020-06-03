@@ -7,7 +7,7 @@ class TestSyntaxNode:
         testsn = SyntaxNode()
     assert (
         str(excinfo.value)
-        == "Can't instantiate abstract class SyntaxNode with abstract methods getChildren, kind"
+        == "Can't instantiate abstract class SyntaxNode with abstract methods get_children, kind"
     )
 
 
@@ -16,7 +16,7 @@ class TestExpressionSyntax:
         expressionSyntax = ExpressionSyntax()
     assert (
         str(excinfo.value)
-        == "Can't instantiate abstract class ExpressionSyntax with abstract methods getChildren, getLastChild, kind"
+        == "Can't instantiate abstract class ExpressionSyntax with abstract methods get_children, get_last_child, kind"
     )
 
 
