@@ -42,7 +42,7 @@ class Lexer:
                     f"ERROR: Lexer:NextToken: the token {tokentext} cannot be represented as an int"
                 )
 
-            return SyntaxToken(tokentext, start, SyntaxKind.number, tokenvalue)
+            return SyntaxToken(tokentext, start, SyntaxKind.literal, tokenvalue)
 
         if self.current().isalpha():
             start = self.position

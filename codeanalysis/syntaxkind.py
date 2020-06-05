@@ -8,7 +8,7 @@ class SyntaxKind(Enum):
     # tokens
     badtoken = (0,)
     endoffile = (1,)
-    number = (2,)
+    literal = (2,)
     string = (3,)
     whitespace = (4,)
 

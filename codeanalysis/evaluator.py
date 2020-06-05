@@ -13,7 +13,7 @@ class Evaluator:
         return self.evaluate_expression(self.root)
 
     def evaluate_expression(self, expr: ExpressionSyntax) -> int:
-        # we need to deal with Binary expressions and number expressions now
+        # we need to deal with Binary expressions and literal expressions now
         if isinstance(expr, LiteralExpressionSyntax):
             return expr.literal_token.value
         elif isinstance(expr, BinaryExpressionSyntax):

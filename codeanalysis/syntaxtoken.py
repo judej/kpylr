@@ -2,6 +2,7 @@ from codeanalysis.syntaxnode import SyntaxNode
 from codeanalysis.syntaxkind import SyntaxKind
 from typing import Any, List
 
+
 class SyntaxToken(SyntaxNode):
     """Base class for all Syntax Tokens
     """
@@ -12,7 +13,7 @@ class SyntaxToken(SyntaxNode):
         :text: The line to be tokenized
         :position: position of the token in the line
         :kind: the kind of syntax token
-        :value: The value of the token - could be a string or number etc
+        :value: The value of the token - could be a string or literal etc
         """
         self.text = text
         self.position = position

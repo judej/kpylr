@@ -6,7 +6,7 @@ from codeanalysis.expressionsyntax import ExpressionSyntax
 
 
 class LiteralExpressionSyntax(ExpressionSyntax):
-    """ExpressionSyntax(Syntax Node) that is used for a number expression e.g. '2' 
+    """ExpressionSyntax(Syntax Node) that is used for a literal expression e.g. '2' 
     :param ExpressionSyntax: ExpressionSyntax(SyntaxNode)
     """
 
@@ -15,7 +15,7 @@ class LiteralExpressionSyntax(ExpressionSyntax):
         return
 
     def kind(self):
-        return SyntaxKind.number
+        return SyntaxKind.literal
 
     def get_children(self) -> List[SyntaxNode]:
         yield self.literal_token

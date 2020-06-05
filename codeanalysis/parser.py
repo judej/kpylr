@@ -89,6 +89,6 @@ class Parser:
             right = self.match_token(SyntaxKind.closeparanthesis)
             return ParanthesizedExpressionSyntax(left, expression, right)
 
-        literal_token = self.match_token(SyntaxKind.number)
+        literal_token = self.match_token(SyntaxKind.literal)
         return LiteralExpressionSyntax(literal_token)
 

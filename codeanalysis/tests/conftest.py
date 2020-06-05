@@ -9,18 +9,18 @@ import pytest
 
 
 @pytest.fixture
-def number0() -> LiteralExpressionSyntax:
-    return LiteralExpressionSyntax(SyntaxToken("0", 0, SyntaxKind.number, 0))
+def literal0() -> LiteralExpressionSyntax:
+    return LiteralExpressionSyntax(SyntaxToken("0", 0, SyntaxKind.literal, 0))
 
 
 @pytest.fixture
-def number1() -> LiteralExpressionSyntax:
-    return LiteralExpressionSyntax(SyntaxToken("2", 0, SyntaxKind.number, 2))
+def literal1() -> LiteralExpressionSyntax:
+    return LiteralExpressionSyntax(SyntaxToken("2", 0, SyntaxKind.literal, 2))
 
 
 @pytest.fixture
-def number2() -> LiteralExpressionSyntax:
-    return LiteralExpressionSyntax(SyntaxToken("3", 0, SyntaxKind.number, 3))
+def literal2() -> LiteralExpressionSyntax:
+    return LiteralExpressionSyntax(SyntaxToken("3", 0, SyntaxKind.literal, 3))
 
 
 @pytest.fixture
@@ -55,24 +55,24 @@ def division_operator() -> SyntaxToken:
 
 @pytest.fixture
 def binary_expression_syntax_simple(
-    number1, number2, addition_operator
+    literal1, literal2, addition_operator
 ) -> BinaryExpressionSyntax:
-    return BinaryExpressionSyntax(number1, addition_operator, number2)
+    return BinaryExpressionSyntax(literal1, addition_operator, literal2)
 
 
 @pytest.fixture
 def paranthesized_expression_simple(
-    number1, number2, addition_operator, open_paranthesis, close_paranthesis
+    literal1, literal2, addition_operator, open_paranthesis, close_paranthesis
 ) -> ParanthesizedExpressionSyntax:
     return ParanthesizedExpressionSyntax(
         open_paranthesis,
-        BinaryExpressionSyntax(number1, addition_operator, number2),
+        BinaryExpressionSyntax(literal1, addition_operator, literal2),
         close_paranthesis,
     )
 
 
 @pytest.fixture
 def parser_simple(
-    number1, number2, addition_operator, open_paranthesis, close_paranthesis
+    literal1, literal2, addition_operator, open_paranthesis, close_paranthesis
 ) -> Parser:
     return Parser("2+3", 0)
