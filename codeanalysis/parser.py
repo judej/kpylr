@@ -18,7 +18,7 @@ class Parser:
         lex = Lexer(text)
         if len(lex.diagnostics) > 0:
             self.diagnostics.append(lex.diagnostics)
-        token = lex.next_token()
+        token = lex.lex()
 
         while True:
             if (token.kind() != SyntaxKind.badtoken) and (
@@ -27,7 +27,7 @@ class Parser:
                 self.tokens.append(token)
             if token.kind() == SyntaxKind.endoffile:
                 break
-            token = lex.next_token()
+            token = lex.lex()
 
     def peek(self, offset: int) -> SyntaxToken:
         if self.position + offset >= len(self.tokens):

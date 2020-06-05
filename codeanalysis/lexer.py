@@ -17,7 +17,7 @@ class Lexer:
         self.text = text
         self.position = 0
 
-    def next_token(self) -> SyntaxToken:
+    def lex(self) -> SyntaxToken:
         """Returns the next Syntax token. Currently only supports  +, -, *, /, (, ), <whitespace>
 
         :raises LexerExceptionBadToken: [description]

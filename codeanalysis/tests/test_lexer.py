@@ -10,11 +10,11 @@ class TestLexer:
 
     def test_next_token_simple(self):
         lexer = Lexer(self.input1)
-        assert lexer.next_token().value == 3
-        assert lexer.next_token().text == "+"
-        assert lexer.next_token().value == 4
-        assert lexer.next_token().text == "+"
-        assert lexer.next_token().value == 5
+        assert lexer.lex().value == 3
+        assert lexer.lex().text == "+"
+        assert lexer.lex().value == 4
+        assert lexer.lex().text == "+"
+        assert lexer.lex().value == 5
 
     @pytest.mark.parametrize(
         "input",
@@ -43,12 +43,11 @@ class TestLexer:
     def test_next_token_bad(self, input):
         lexer = Lexer(input)
         tokens = []
-        tokens.append(lexer.next_token())
+        tokens.append(lexer.lex())
         while tokens[-1].kind() != SyntaxKind.endoffile:
-            tokens.append(lexer.next_token())
+            tokens.append(lexer.lex())
             badtokens = list(filter(lambda t: t.kind() == SyntaxKind.badtoken, tokens))
-            assert(len(badtokens) == 1 )
-
+            assert len(badtokens) == 1
 
     def test_current(self):
         lexer = Lexer("a+b")
