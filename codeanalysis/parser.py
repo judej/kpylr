@@ -1,3 +1,4 @@
+from codeanalysis.syntaxfacts import SyntaxFacts
 from codeanalysis.expressionsyntax import ExpressionSyntax
 from codeanalysis.syntaxtree import SyntaxTree
 from codeanalysis.paranthesizedexpressionsyntax import ParanthesizedExpressionSyntax
@@ -61,7 +62,9 @@ class Parser:
     def parse_expression(self, parent_precedence: int = 0) -> ExpressionSyntax:
         left = self.parse_primary_expression()
         while True:
-            precedence = self.get_binary_operator_precedence(self.current().kind())
+            precedence = SyntaxFacts.get_binary_operator_precedence(
+                self.current().kind()
+            )
             if (precedence == 0) or (precedence <= parent_precedence):
                 break
             operator_token = self.next_token()
@@ -69,17 +72,6 @@ class Parser:
             left = BinaryExpressionSyntax(left, operator_token, right)
 
         return left
-
-    def get_binary_operator_precedence(kind: SyntaxKind) -> int:
-        # returning 1 if it is a binary operator
-        if kind in {SyntaxKind.additiontoken, SyntaxKind.subtractiontoken}:
-            return 1
-        elif kind in {
-            SyntaxKind.multiplicationtoken,
-            SyntaxKind.divisiontoken,
-        }:
-            return 2
-        return 0
 
     def parse_primary_expression(self) -> ExpressionSyntax:
         if self.current().kind() == SyntaxKind.openparanthesistoken:
