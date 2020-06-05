@@ -4,9 +4,8 @@ from codeanalysis.paranthesizedexpressionsyntax import ParanthesizedExpressionSy
 from codeanalysis.lexer import Lexer
 from codeanalysis.syntaxtoken import SyntaxToken
 from codeanalysis.syntaxkind import SyntaxKind
-from codeanalysis.numberexpressionsyntax import NumberExpressionSyntax
+from codeanalysis.literalexpressionsyntax import LiteralExpressionSyntax
 from codeanalysis.binaryexpressionsyntax import BinaryExpressionSyntax
-
 
 
 class Parser:
@@ -52,13 +51,15 @@ class Parser:
         )
         return SyntaxToken(None, 0, kind, None)
 
-    def parse_expression(self) -> ExpressionSyntax:
-        return self.parse_term()
-
     def parse(self) -> SyntaxTree:
         return SyntaxTree(
-            self.diagnostics, self.parse_term(), self.match_token(SyntaxKind.endoffile)
+            self.diagnostics,
+            self.parse_expression(),
+            self.match_token(SyntaxKind.endoffile),
         )
+
+    def parse_expression(self) -> ExpressionSyntax:
+        return self.parse_term()
 
     def parse_term(self) -> ExpressionSyntax:
         left = self.parse_factor()
@@ -88,6 +89,6 @@ class Parser:
             right = self.match_token(SyntaxKind.closeparanthesis)
             return ParanthesizedExpressionSyntax(left, expression, right)
 
-        number_token = self.match_token(SyntaxKind.number)
-        return NumberExpressionSyntax(number_token)
+        literal_token = self.match_token(SyntaxKind.number)
+        return LiteralExpressionSyntax(literal_token)
 

@@ -1,7 +1,7 @@
 from codeanalysis.tests.conftest import binary_expression_syntax_simple
 from codeanalysis.syntaxkind import SyntaxKind
 from codeanalysis.syntaxtoken import SyntaxToken
-from codeanalysis.numberexpressionsyntax import NumberExpressionSyntax
+from codeanalysis.literalexpressionsyntax import LiteralExpressionSyntax
 import pytest
 from codeanalysis.binaryexpressionsyntax import BinaryExpressionSyntax
 

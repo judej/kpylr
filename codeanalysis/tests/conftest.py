@@ -4,23 +4,23 @@ from codeanalysis.paranthesizedexpressionsyntax import ParanthesizedExpressionSy
 from codeanalysis.binaryexpressionsyntax import BinaryExpressionSyntax
 from codeanalysis.syntaxkind import SyntaxKind
 from codeanalysis.syntaxtoken import SyntaxToken
-from codeanalysis.numberexpressionsyntax import NumberExpressionSyntax
+from codeanalysis.literalexpressionsyntax import LiteralExpressionSyntax
 import pytest
 
 
 @pytest.fixture
-def number0() -> NumberExpressionSyntax:
-    return NumberExpressionSyntax(SyntaxToken("0", 0, SyntaxKind.number, 0))
+def number0() -> LiteralExpressionSyntax:
+    return LiteralExpressionSyntax(SyntaxToken("0", 0, SyntaxKind.number, 0))
 
 
 @pytest.fixture
-def number1() -> NumberExpressionSyntax:
-    return NumberExpressionSyntax(SyntaxToken("2", 0, SyntaxKind.number, 2))
+def number1() -> LiteralExpressionSyntax:
+    return LiteralExpressionSyntax(SyntaxToken("2", 0, SyntaxKind.number, 2))
 
 
 @pytest.fixture
-def number2() -> NumberExpressionSyntax:
-    return NumberExpressionSyntax(SyntaxToken("3", 0, SyntaxKind.number, 3))
+def number2() -> LiteralExpressionSyntax:
+    return LiteralExpressionSyntax(SyntaxToken("3", 0, SyntaxKind.number, 3))
 
 
 @pytest.fixture

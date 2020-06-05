@@ -5,16 +5,21 @@ class SyntaxKind(Enum):
     """Kinds of Syntax Tokens
     """
 
-    number = (1,)
-    string = (2,)
-    addition = (3,)
-    subtraction = (4,)
-    multiplication = (5,)
-    division = (6,)
-    whitespace = (7,)
-    openparanthesis = (8,)
-    closeparanthesis = (9,)
-    badtoken = (10,)
+    # tokens
+    badtoken = (0,)
+    endoffile = (1,)
+    number = (2,)
+    string = (3,)
+    whitespace = (4,)
+
+    # operators
+    addition = (5,)
+    subtraction = (6,)
+    multiplication = (7,)
+    division = (8,)
+    openparanthesis = (9,)
+    closeparanthesis = (10,)
+
+    # expressions
     binaryexpression = (11,)
     paranthesizedexpression = (12,)
-    endoffile = 13

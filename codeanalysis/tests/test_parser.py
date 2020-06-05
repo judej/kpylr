@@ -44,5 +44,5 @@ class TestParser:
         parser = Parser("2+3", 0)
         number_expression_syntax = parser.parse_primary_expression()
         assert number_expression_syntax.kind() == SyntaxKind.number
-        assert number_expression_syntax.number_token.value == 2
+        assert number_expression_syntax.literal_token.value == 2
 
