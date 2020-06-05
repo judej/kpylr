@@ -22,10 +22,10 @@ class Parser:
 
         while True:
             if (token.kind() != SyntaxKind.badtoken) and (
-                token.kind() != SyntaxKind.whitespace
+                token.kind() != SyntaxKind.whitespacetoken
             ):
                 self.tokens.append(token)
-            if token.kind() == SyntaxKind.endoffile:
+            if token.kind() == SyntaxKind.endoffiletoken:
                 break
             token = lex.lex()
 
@@ -55,7 +55,7 @@ class Parser:
         return SyntaxTree(
             self.diagnostics,
             self.parse_expression(),
-            self.match_token(SyntaxKind.endoffile),
+            self.match_token(SyntaxKind.endoffiletoken),
         )
 
     def parse_expression(self) -> ExpressionSyntax:
@@ -63,8 +63,8 @@ class Parser:
 
     def parse_term(self) -> ExpressionSyntax:
         left = self.parse_factor()
-        while (self.current().kind() == SyntaxKind.addition) or (
-            self.current().kind() == SyntaxKind.subtraction
+        while (self.current().kind() == SyntaxKind.additiontoken) or (
+            self.current().kind() == SyntaxKind.subtractiontoken
         ):
             operator_token = self.next_token()
             right = self.parse_factor()
@@ -74,8 +74,8 @@ class Parser:
 
     def parse_factor(self) -> ExpressionSyntax:
         left = self.parse_primary_expression()
-        while (self.current().kind() == SyntaxKind.division) or (
-            self.current().kind() == SyntaxKind.multiplication
+        while (self.current().kind() == SyntaxKind.divisiontoken) or (
+            self.current().kind() == SyntaxKind.multiplicationtoken
         ):
             operator_token = self.next_token()
             right = self.parse_primary_expression()
@@ -83,12 +83,12 @@ class Parser:
         return left
 
     def parse_primary_expression(self) -> ExpressionSyntax:
-        if self.current().kind() == SyntaxKind.openparanthesis:
+        if self.current().kind() == SyntaxKind.openparanthesistoken:
             left = self.next_token()
             expression = self.parse_expression()
-            right = self.match_token(SyntaxKind.closeparanthesis)
+            right = self.match_token(SyntaxKind.closeparanthesistoken)
             return ParanthesizedExpressionSyntax(left, expression, right)
 
-        literal_token = self.match_token(SyntaxKind.literal)
+        literal_token = self.match_token(SyntaxKind.numbertoken)
         return LiteralExpressionSyntax(literal_token)
 

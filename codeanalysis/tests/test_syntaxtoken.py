@@ -16,10 +16,10 @@ class TestSyntaxToken:
         division_operator: SyntaxToken,
         multiplication_operator: SyntaxToken,
     ):
-        assert addition_operator.kind() == SyntaxKind.addition
-        assert subtraction_operator.kind() == SyntaxKind.subtraction
-        assert division_operator.kind() == SyntaxKind.division
-        assert multiplication_operator.kind() == SyntaxKind.multiplication
+        assert addition_operator.kind() == SyntaxKind.additiontoken
+        assert subtraction_operator.kind() == SyntaxKind.subtractiontoken
+        assert division_operator.kind() == SyntaxKind.divisiontoken
+        assert multiplication_operator.kind() == SyntaxKind.multiplicationtoken
 
     def test_get_children(self, addition_operator: SyntaxToken):
         assert next(addition_operator.get_children()) == None
@@ -28,5 +28,5 @@ class TestSyntaxToken:
         assert addition_operator.get_last_child() == None
 
     def test_kind(self, addition_operator: SyntaxToken):
-        assert addition_operator.kind() == SyntaxKind.addition
+        assert addition_operator.kind() == SyntaxKind.additiontoken
 

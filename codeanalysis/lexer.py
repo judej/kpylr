@@ -26,7 +26,7 @@ class Lexer:
         """
         # looking for +, -, *, /, (, ), .whitespace
         if self.position >= len(self.text):
-            return SyntaxToken("\0", self.current(), SyntaxKind.endoffile, "\0")
+            return SyntaxToken("\0", self.current(), SyntaxKind.endoffiletoken, "\0")
 
         if self.current().isnumeric():
             start = self.position
@@ -42,15 +42,7 @@ class Lexer:
                     f"ERROR: Lexer:NextToken: the token {tokentext} cannot be represented as an int"
                 )
 
-            return SyntaxToken(tokentext, start, SyntaxKind.literal, tokenvalue)
-
-        if self.current().isalpha():
-            start = self.position
-            while self.current().isalpha():
-                self.next()
-            length = self.position - start
-            tokentext = self.text[start : start + length]
-            return SyntaxToken(tokentext, start, SyntaxKind.string, tokentext)
+            return SyntaxToken(tokentext, start, SyntaxKind.numbertoken, tokenvalue)
 
         if self.current().isspace():
             start = self.position
@@ -58,27 +50,33 @@ class Lexer:
                 self.next()
             length = self.position - start
             tokentext = self.text[start : start + length]
-            return SyntaxToken(tokentext, start, SyntaxKind.whitespace, tokentext)
+            return SyntaxToken(tokentext, start, SyntaxKind.whitespacetoken, tokentext)
 
         if self.current() == "+":
             self.next()
-            return SyntaxToken("+", self.position - 1, SyntaxKind.addition, None)
+            return SyntaxToken("+", self.position - 1, SyntaxKind.additiontoken, None)
         elif self.current() == "-":
             self.next()
-            return SyntaxToken("-", self.position - 1, SyntaxKind.subtraction, None)
+            return SyntaxToken(
+                "-", self.position - 1, SyntaxKind.subtractiontoken, None
+            )
         elif self.current() == "*":
             self.next()
-            return SyntaxToken("*", self.position - 1, SyntaxKind.multiplication, None)
+            return SyntaxToken(
+                "*", self.position - 1, SyntaxKind.multiplicationtoken, None
+            )
         elif self.current() == "/":
             self.next()
-            return SyntaxToken("/", self.position - 1, SyntaxKind.division, None)
+            return SyntaxToken("/", self.position - 1, SyntaxKind.divisiontoken, None)
         elif self.current() == "(":
             self.next()
-            return SyntaxToken("(", self.position - 1, SyntaxKind.openparanthesis, None)
+            return SyntaxToken(
+                "(", self.position - 1, SyntaxKind.openparanthesistoken, None
+            )
         elif self.current() == ")":
             self.next()
             return SyntaxToken(
-                ")", self.position - 1, SyntaxKind.closeparanthesis, None
+                ")", self.position - 1, SyntaxKind.closeparanthesistoken, None
             )
         else:
             self.diagnostics.append(

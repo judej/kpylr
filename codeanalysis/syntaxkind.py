@@ -7,19 +7,19 @@ class SyntaxKind(Enum):
 
     # tokens
     badtoken = (0,)
-    endoffile = (1,)
-    literal = (2,)
-    string = (3,)
-    whitespace = (4,)
+    endoffiletoken = (1,)
+    whitespacetoken = (2,)
+    numbertoken = (3,)
 
     # operators
-    addition = (5,)
-    subtraction = (6,)
-    multiplication = (7,)
-    division = (8,)
-    openparanthesis = (9,)
-    closeparanthesis = (10,)
+    additiontoken = (5,)
+    subtractiontoken = (6,)
+    multiplicationtoken = (7,)
+    divisiontoken = (8,)
+    openparanthesistoken = (9,)
+    closeparanthesistoken = (10,)
 
     # expressions
-    binaryexpression = (11,)
-    paranthesizedexpression = (12,)
+    lieralexpression = (11,)
+    binaryexpression = (12,)
+    paranthesizedexpression = (13,)

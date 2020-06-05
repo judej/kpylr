@@ -20,10 +20,10 @@ class Evaluator:
             left = self.evaluate_expression(expr.left)
             right = self.evaluate_expression(expr.right)
             switcher = {
-                SyntaxKind.addition: left + right,
-                SyntaxKind.subtraction: left - right,
-                SyntaxKind.multiplication: left * right,
-                SyntaxKind.division: left / right,
+                SyntaxKind.additiontoken: left + right,
+                SyntaxKind.subtractiontoken: left - right,
+                SyntaxKind.multiplicationtoken: left * right,
+                SyntaxKind.divisiontoken: left / right,
             }
             return switcher.get(expr.operatorToken.kind(), 0)
         elif isinstance(expr, ParanthesizedExpressionSyntax):

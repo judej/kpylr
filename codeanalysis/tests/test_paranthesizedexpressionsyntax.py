@@ -11,9 +11,9 @@ class TestParanthesizedExpressionSyntax:
 
     def test_getChildren(self, paranthesized_expression_simple) -> None:
         token_gernator = paranthesized_expression_simple.get_children()
-        assert next(token_gernator).kind() == SyntaxKind.openparanthesis
+        assert next(token_gernator).kind() == SyntaxKind.openparanthesistoken
         assert next(token_gernator).kind() == SyntaxKind.binaryexpression
-        assert next(token_gernator).kind() == SyntaxKind.closeparanthesis
+        assert next(token_gernator).kind() == SyntaxKind.closeparanthesistoken
         with pytest.raises(Exception) as excinfo:
             next(token_gernator)
         assert str(excinfo) == "<ExceptionInfo StopIteration() tblen=1>"
@@ -21,6 +21,6 @@ class TestParanthesizedExpressionSyntax:
     def test_getLastChild(self, paranthesized_expression_simple) -> None:
         assert (
             paranthesized_expression_simple.get_last_child().kind()
-            == SyntaxKind.closeparanthesis
+            == SyntaxKind.closeparanthesistoken
         )
 

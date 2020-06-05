@@ -15,7 +15,7 @@ class LiteralExpressionSyntax(ExpressionSyntax):
         return
 
     def kind(self):
-        return SyntaxKind.literal
+        return SyntaxKind.numbertoken
 
     def get_children(self) -> List[SyntaxNode]:
         yield self.literal_token

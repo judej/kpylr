@@ -10,47 +10,47 @@ import pytest
 
 @pytest.fixture
 def literal0() -> LiteralExpressionSyntax:
-    return LiteralExpressionSyntax(SyntaxToken("0", 0, SyntaxKind.literal, 0))
+    return LiteralExpressionSyntax(SyntaxToken("0", 0, SyntaxKind.numbertoken, 0))
 
 
 @pytest.fixture
 def literal1() -> LiteralExpressionSyntax:
-    return LiteralExpressionSyntax(SyntaxToken("2", 0, SyntaxKind.literal, 2))
+    return LiteralExpressionSyntax(SyntaxToken("2", 0, SyntaxKind.numbertoken, 2))
 
 
 @pytest.fixture
 def literal2() -> LiteralExpressionSyntax:
-    return LiteralExpressionSyntax(SyntaxToken("3", 0, SyntaxKind.literal, 3))
+    return LiteralExpressionSyntax(SyntaxToken("3", 0, SyntaxKind.numbertoken, 3))
 
 
 @pytest.fixture
 def open_paranthesis() -> SyntaxToken:
-    return SyntaxToken("(", 0, SyntaxKind.openparanthesis, None)
+    return SyntaxToken("(", 0, SyntaxKind.openparanthesistoken, None)
 
 
 @pytest.fixture
 def close_paranthesis() -> SyntaxToken:
-    return SyntaxToken(")", 0, SyntaxKind.closeparanthesis, None)
+    return SyntaxToken(")", 0, SyntaxKind.closeparanthesistoken, None)
 
 
 @pytest.fixture
 def addition_operator() -> SyntaxToken:
-    return SyntaxToken("+", 0, SyntaxKind.addition, None)
+    return SyntaxToken("+", 0, SyntaxKind.additiontoken, None)
 
 
 @pytest.fixture
 def subtraction_operator() -> SyntaxToken:
-    return SyntaxToken("-", 0, SyntaxKind.subtraction, None)
+    return SyntaxToken("-", 0, SyntaxKind.subtractiontoken, None)
 
 
 @pytest.fixture
 def multiplication_operator() -> SyntaxToken:
-    return SyntaxToken("*", 0, SyntaxKind.multiplication, None)
+    return SyntaxToken("*", 0, SyntaxKind.multiplicationtoken, None)
 
 
 @pytest.fixture
 def division_operator() -> SyntaxToken:
-    return SyntaxToken("/", 0, SyntaxKind.division, None)
+    return SyntaxToken("/", 0, SyntaxKind.divisiontoken, None)
 
 
 @pytest.fixture

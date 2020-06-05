@@ -16,9 +16,9 @@ class TestBinaryExpressionSyntax:
         self, binary_expression_syntax_simple: BinaryExpressionSyntax
     ) -> None:
         token_gernator = binary_expression_syntax_simple.get_children()
-        assert next(token_gernator).kind() == SyntaxKind.literal
-        assert next(token_gernator).kind() == SyntaxKind.addition
-        assert next(token_gernator).kind() == SyntaxKind.literal
+        assert next(token_gernator).kind() == SyntaxKind.numbertoken
+        assert next(token_gernator).kind() == SyntaxKind.additiontoken
+        assert next(token_gernator).kind() == SyntaxKind.numbertoken
         with pytest.raises(Exception) as excinfo:
             next(token_gernator)
         assert str(excinfo) == "<ExceptionInfo StopIteration() tblen=1>"
@@ -28,5 +28,5 @@ class TestBinaryExpressionSyntax:
     ) -> None:
         assert (
             binary_expression_syntax_simple.get_last_child().kind()
-            == SyntaxKind.literal
+            == SyntaxKind.numbertoken
         )

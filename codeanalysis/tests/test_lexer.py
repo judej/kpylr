@@ -44,7 +44,7 @@ class TestLexer:
         lexer = Lexer(input)
         tokens = []
         tokens.append(lexer.lex())
-        while tokens[-1].kind() != SyntaxKind.endoffile:
+        while tokens[-1].kind() != SyntaxKind.endoffiletoken:
             tokens.append(lexer.lex())
             badtokens = list(filter(lambda t: t.kind() == SyntaxKind.badtoken, tokens))
             assert len(badtokens) == 1

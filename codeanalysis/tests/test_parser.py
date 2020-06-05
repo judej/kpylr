@@ -4,24 +4,24 @@ from codeanalysis.parser import Parser
 
 class TestParser:
     def test_peek(self, parser_simple: Parser) -> None:
-        assert parser_simple.peek(0).kind() == SyntaxKind.literal
-        assert parser_simple.peek(1).kind() == SyntaxKind.addition
-        assert parser_simple.peek(2).kind() == SyntaxKind.literal
-        assert parser_simple.peek(3).kind() == SyntaxKind.endoffile
-        assert parser_simple.peek(4).kind() == SyntaxKind.endoffile
+        assert parser_simple.peek(0).kind() == SyntaxKind.numbertoken
+        assert parser_simple.peek(1).kind() == SyntaxKind.additiontoken
+        assert parser_simple.peek(2).kind() == SyntaxKind.numbertoken
+        assert parser_simple.peek(3).kind() == SyntaxKind.endoffiletoken
+        assert parser_simple.peek(4).kind() == SyntaxKind.endoffiletoken
 
     def test_current(self, parser_simple: Parser) -> None:
-        assert parser_simple.current().kind() == SyntaxKind.literal
+        assert parser_simple.current().kind() == SyntaxKind.numbertoken
         parser_simple.next_token()
-        assert parser_simple.current().kind() == SyntaxKind.addition
+        assert parser_simple.current().kind() == SyntaxKind.additiontoken
         parser_simple.next_token()
-        assert parser_simple.current().kind() == SyntaxKind.literal
+        assert parser_simple.current().kind() == SyntaxKind.numbertoken
         parser_simple.next_token()
-        assert parser_simple.current().kind() == SyntaxKind.endoffile
+        assert parser_simple.current().kind() == SyntaxKind.endoffiletoken
 
     def test_matchToken(self, parser_simple: Parser) -> None:
-        token = parser_simple.match_token(SyntaxKind.endoffile)
-        assert token.kind() == SyntaxKind.endoffile
+        token = parser_simple.match_token(SyntaxKind.endoffiletoken)
+        assert token.kind() == SyntaxKind.endoffiletoken
         expected_error = filter(
             lambda d: d.startswith(
                 "ERROR: Parser:Matchoken: unexpected token, Expected"
@@ -32,17 +32,17 @@ class TestParser:
 
     def test_parse_simple(self) -> None:
         parser = Parser("2+3", 0)
-        assert parser.current().kind() == SyntaxKind.literal
+        assert parser.current().kind() == SyntaxKind.numbertoken
         parser.next_token()
-        assert parser.current().kind() == SyntaxKind.addition
+        assert parser.current().kind() == SyntaxKind.additiontoken
         parser.next_token()
-        assert parser.current().kind() == SyntaxKind.literal
+        assert parser.current().kind() == SyntaxKind.numbertoken
         parser.next_token()
-        assert parser.current().kind() == SyntaxKind.endoffile
+        assert parser.current().kind() == SyntaxKind.endoffiletoken
 
     def test_parsePrimaryExpression_simple(self) -> None:
         parser = Parser("2+3", 0)
         literal_expression_syntax = parser.parse_primary_expression()
-        assert literal_expression_syntax.kind() == SyntaxKind.literal
+        assert literal_expression_syntax.kind() == SyntaxKind.numbertoken
         assert literal_expression_syntax.literal_token.value == 2
 
