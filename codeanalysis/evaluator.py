@@ -25,7 +25,7 @@ class Evaluator:
                 SyntaxKind.multiplicationtoken: left * right,
                 SyntaxKind.divisiontoken: left / right,
             }
-            return switcher.get(expr.operatorToken.kind(), 0)
+            return switcher.get(expr.operator_token.kind(), 0)
         elif isinstance(expr, ParanthesizedExpressionSyntax):
             return self.evaluate_expression(expr.expression)
 

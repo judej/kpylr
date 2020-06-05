@@ -58,29 +58,28 @@ class Parser:
             self.match_token(SyntaxKind.endoffiletoken),
         )
 
-    def parse_expression(self) -> ExpressionSyntax:
-        return self.parse_term()
-
-    def parse_term(self) -> ExpressionSyntax:
-        left = self.parse_factor()
-        while (self.current().kind() == SyntaxKind.additiontoken) or (
-            self.current().kind() == SyntaxKind.subtractiontoken
-        ):
-            operator_token = self.next_token()
-            right = self.parse_factor()
-            left = BinaryExpressionSyntax(left, operator_token, right)
-
-        return left
-
-    def parse_factor(self) -> ExpressionSyntax:
+    def parse_expression(self, parent_precedence: int = 0) -> ExpressionSyntax:
         left = self.parse_primary_expression()
-        while (self.current().kind() == SyntaxKind.divisiontoken) or (
-            self.current().kind() == SyntaxKind.multiplicationtoken
-        ):
+        while True:
+            precedence = self.get_binary_operator_precedence(self.current().kind())
+            if (precedence == 0) or (precedence <= parent_precedence):
+                break
             operator_token = self.next_token()
-            right = self.parse_primary_expression()
+            right = self.parse_expression(precedence)
             left = BinaryExpressionSyntax(left, operator_token, right)
+
         return left
+
+    def get_binary_operator_precedence(kind: SyntaxKind) -> int:
+        # returning 1 if it is a binary operator
+        if kind in {SyntaxKind.additiontoken, SyntaxKind.subtractiontoken}:
+            return 1
+        elif kind in {
+            SyntaxKind.multiplicationtoken,
+            SyntaxKind.divisiontoken,
+        }:
+            return 2
+        return 0
 
     def parse_primary_expression(self) -> ExpressionSyntax:
         if self.current().kind() == SyntaxKind.openparanthesistoken:

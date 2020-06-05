@@ -6,23 +6,23 @@ from codeanalysis.expressionsyntax import ExpressionSyntax
 
 
 class BinaryExpressionSyntax(ExpressionSyntax):
-    """Binary expression syntax node that has a left SyntaxNode, an operatorToken and a right syntax node
+    """Binary expression syntax node that has a left SyntaxNode, an operator_token and a right syntax node
     """
 
     def __init__(
         self,
         left: ExpressionSyntax,
-        operatorToken: SyntaxToken,
+        operator_token: SyntaxToken,
         right: ExpressionSyntax,
     ) -> None:
         """Constructor for BinaryExpressionSyntax - left, operator and right
 
         :param left: An expression Syntax (could be another Binary Expression)
-        :param operatorToken: Operator token 
+        :param operator_token: Operator token 
         :param right: An expression Syntax (could be another Binary Expression)
         """
         self.left = left
-        self.operatorToken = operatorToken
+        self.operator_token = operator_token
         self.right = right
         return
 
@@ -37,7 +37,7 @@ class BinaryExpressionSyntax(ExpressionSyntax):
         :rtype: Iterator[List[SyntaxNode]]
         """
         yield self.left
-        yield self.operatorToken
+        yield self.operator_token
         yield self.right
 
     def get_last_child(self) -> SyntaxNode:
