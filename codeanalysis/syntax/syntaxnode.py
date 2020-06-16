@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
-from codeanalysis.syntaxkind import SyntaxKind
+from codeanalysis.syntax.syntaxkind import SyntaxKind
 from typing import Any, List
+
 
 class SyntaxNode(ABC):
     """Structure to support a Syntax Token Node. 

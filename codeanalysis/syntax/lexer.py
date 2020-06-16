@@ -1,6 +1,6 @@
 from typing import List
-from codeanalysis.syntaxtoken import SyntaxToken
-from codeanalysis.syntaxkind import SyntaxKind
+from codeanalysis.syntax.syntaxtoken import SyntaxToken
+from codeanalysis.syntax.syntaxkind import SyntaxKind
 
 
 class Lexer:

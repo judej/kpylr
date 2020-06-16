@@ -1,6 +1,6 @@
-from codeanalysis.syntaxkind import SyntaxKind
+from codeanalysis.syntax.syntaxkind import SyntaxKind
 import pytest
-from codeanalysis.literalexpressionsyntax import LiteralExpressionSyntax
+from codeanalysis.syntax.literalexpressionsyntax import LiteralExpressionSyntax
 
 
 class TestLiteralExpressionSyntax:

@@ -1,5 +1,5 @@
-from codeanalysis.syntaxkind import SyntaxKind
-from codeanalysis.tests.conftest import paranthesized_expression_simple
+from codeanalysis.syntax.syntaxkind import SyntaxKind
+from codeanalysis.syntax.tests.conftest import paranthesized_expression_simple
 import pytest
 
 

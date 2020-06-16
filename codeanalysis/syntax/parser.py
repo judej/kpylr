@@ -1,13 +1,15 @@
-from codeanalysis.unaryexpressionsyntax import UnaryExpressionSyntax
-from codeanalysis.syntaxfacts import SyntaxFacts
-from codeanalysis.expressionsyntax import ExpressionSyntax
-from codeanalysis.syntaxtree import SyntaxTree
-from codeanalysis.paranthesizedexpressionsyntax import ParanthesizedExpressionSyntax
-from codeanalysis.lexer import Lexer
-from codeanalysis.syntaxtoken import SyntaxToken
-from codeanalysis.syntaxkind import SyntaxKind
-from codeanalysis.literalexpressionsyntax import LiteralExpressionSyntax
-from codeanalysis.binaryexpressionsyntax import BinaryExpressionSyntax
+from codeanalysis.syntax.unaryexpressionsyntax import UnaryExpressionSyntax
+from codeanalysis.syntax.syntaxfacts import SyntaxFacts
+from codeanalysis.syntax.expressionsyntax import ExpressionSyntax
+from codeanalysis.syntax.syntaxtree import SyntaxTree
+from codeanalysis.syntax.paranthesizedexpressionsyntax import (
+    ParanthesizedExpressionSyntax,
+)
+from codeanalysis.syntax.lexer import Lexer
+from codeanalysis.syntax.syntaxtoken import SyntaxToken
+from codeanalysis.syntax.syntaxkind import SyntaxKind
+from codeanalysis.syntax.literalexpressionsyntax import LiteralExpressionSyntax
+from codeanalysis.syntax.binaryexpressionsyntax import BinaryExpressionSyntax
 
 
 class Parser:

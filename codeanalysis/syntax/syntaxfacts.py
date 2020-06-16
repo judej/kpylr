@@ -1,4 +1,4 @@
-from codeanalysis.syntaxkind import SyntaxKind
+from codeanalysis.syntax.syntaxkind import SyntaxKind
 
 
 class SyntaxFacts:

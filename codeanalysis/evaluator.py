@@ -1,9 +1,11 @@
-from codeanalysis.unaryexpressionsyntax import UnaryExpressionSyntax
-from codeanalysis.expressionsyntax import ExpressionSyntax
-from codeanalysis.syntaxkind import SyntaxKind
-from codeanalysis.literalexpressionsyntax import LiteralExpressionSyntax
-from codeanalysis.binaryexpressionsyntax import BinaryExpressionSyntax
-from codeanalysis.paranthesizedexpressionsyntax import ParanthesizedExpressionSyntax
+from codeanalysis.syntax.unaryexpressionsyntax import UnaryExpressionSyntax
+from codeanalysis.syntax.expressionsyntax import ExpressionSyntax
+from codeanalysis.syntax.syntaxkind import SyntaxKind
+from codeanalysis.syntax.literalexpressionsyntax import LiteralExpressionSyntax
+from codeanalysis.syntax.binaryexpressionsyntax import BinaryExpressionSyntax
+from codeanalysis.syntax.paranthesizedexpressionsyntax import (
+    ParanthesizedExpressionSyntax,
+)
 
 
 class Evaluator:

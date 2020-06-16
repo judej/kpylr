@@ -1,5 +1,5 @@
-from codeanalysis.syntaxkind import SyntaxKind
-from codeanalysis.parser import Parser
+from codeanalysis.syntax.syntaxkind import SyntaxKind
+from codeanalysis.syntax.parser import Parser
 
 
 class TestParser:

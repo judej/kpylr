@@ -1,9 +1,9 @@
-from codeanalysis.tests.conftest import binary_expression_syntax_simple
-from codeanalysis.syntaxkind import SyntaxKind
-from codeanalysis.syntaxtoken import SyntaxToken
-from codeanalysis.literalexpressionsyntax import LiteralExpressionSyntax
+from codeanalysis.syntax.tests.conftest import binary_expression_syntax_simple
+from codeanalysis.syntax.syntaxkind import SyntaxKind
+from codeanalysis.syntax.syntaxtoken import SyntaxToken
+from codeanalysis.syntax.literalexpressionsyntax import LiteralExpressionSyntax
 import pytest
-from codeanalysis.binaryexpressionsyntax import BinaryExpressionSyntax
+from codeanalysis.syntax.binaryexpressionsyntax import BinaryExpressionSyntax
 
 
 class TestBinaryExpressionSyntax:

@@ -1,5 +1,5 @@
 import pytest
-from codeanalysis.expressionsyntax import ExpressionSyntax
+from codeanalysis.syntax.expressionsyntax import ExpressionSyntax
 
 
 class TestExpressionSyntax:

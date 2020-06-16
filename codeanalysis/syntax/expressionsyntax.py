@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from codeanalysis.syntaxnode import SyntaxNode
+from codeanalysis.syntax.syntaxnode import SyntaxNode
+
 
 class ExpressionSyntax(SyntaxNode, ABC):
     def __init__(self) -> None:

@@ -1,5 +1,5 @@
-from codeanalysis.syntaxkind import SyntaxKind
-from codeanalysis.syntaxfacts import SyntaxFacts
+from codeanalysis.syntax.syntaxkind import SyntaxKind
+from codeanalysis.syntax.syntaxfacts import SyntaxFacts
 
 
 class TestSyntaxFacts:

@@ -1,6 +1,6 @@
 from typing import List
-from codeanalysis.expressionsyntax import ExpressionSyntax
-from codeanalysis.syntaxtoken import SyntaxToken
+from codeanalysis.syntax.expressionsyntax import ExpressionSyntax
+from codeanalysis.syntax.syntaxtoken import SyntaxToken
 
 
 class SyntaxTree:

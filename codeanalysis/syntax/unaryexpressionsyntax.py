@@ -1,8 +1,8 @@
 from typing import List
-from codeanalysis.syntaxtoken import SyntaxToken
-from codeanalysis.syntaxnode import SyntaxNode
-from codeanalysis.syntaxkind import SyntaxKind
-from codeanalysis.expressionsyntax import ExpressionSyntax
+from codeanalysis.syntax.syntaxtoken import SyntaxToken
+from codeanalysis.syntax.syntaxnode import SyntaxNode
+from codeanalysis.syntax.syntaxkind import SyntaxKind
+from codeanalysis.syntax.expressionsyntax import ExpressionSyntax
 
 
 class UnaryExpressionSyntax(ExpressionSyntax):

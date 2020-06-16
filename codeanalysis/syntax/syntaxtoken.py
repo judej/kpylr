@@ -1,5 +1,5 @@
-from codeanalysis.syntaxnode import SyntaxNode
-from codeanalysis.syntaxkind import SyntaxKind
+from codeanalysis.syntax.syntaxnode import SyntaxNode
+from codeanalysis.syntax.syntaxkind import SyntaxKind
 from typing import Any, List
 
 

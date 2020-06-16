@@ -1,5 +1,5 @@
 import pytest
-from codeanalysis.syntaxnode import SyntaxNode
+from codeanalysis.syntax.syntaxnode import SyntaxNode
 
 
 class TestSyntaxNode:

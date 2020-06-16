@@ -1,5 +1,5 @@
 import pytest
-from codeanalysis.syntaxkind import SyntaxKind
+from codeanalysis.syntax.syntaxkind import SyntaxKind
 from ..lexer import Lexer, LexerExceptionBadToken
 
 

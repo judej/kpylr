@@ -1,6 +1,6 @@
 from typing import Union
 import pytest
-from codeanalysis.parser import Parser
+from codeanalysis.syntax.parser import Parser
 from codeanalysis.evaluator import Evaluator
 
 
