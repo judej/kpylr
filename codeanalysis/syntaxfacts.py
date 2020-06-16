@@ -3,6 +3,13 @@ from codeanalysis.syntaxkind import SyntaxKind
 
 class SyntaxFacts:
     @staticmethod
+    def get_unary_operator_precedence(kind: SyntaxKind) -> int:
+        # returning 1 if it is a binary operator
+        if kind in {SyntaxKind.additiontoken, SyntaxKind.subtractiontoken}:
+            return 3
+        return 0
+
+    @staticmethod
     def get_binary_operator_precedence(kind: SyntaxKind) -> int:
         # returning 1 if it is a binary operator
         if kind in {SyntaxKind.additiontoken, SyntaxKind.subtractiontoken}:

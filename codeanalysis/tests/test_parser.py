@@ -4,11 +4,11 @@ from codeanalysis.parser import Parser
 
 class TestParser:
     def test_peek(self, parser_simple: Parser) -> None:
-        assert parser_simple.peek(0).kind() == SyntaxKind.numbertoken
-        assert parser_simple.peek(1).kind() == SyntaxKind.additiontoken
-        assert parser_simple.peek(2).kind() == SyntaxKind.numbertoken
-        assert parser_simple.peek(3).kind() == SyntaxKind.endoffiletoken
-        assert parser_simple.peek(4).kind() == SyntaxKind.endoffiletoken
+        assert parser_simple._peek(0).kind() == SyntaxKind.numbertoken
+        assert parser_simple._peek(1).kind() == SyntaxKind.additiontoken
+        assert parser_simple._peek(2).kind() == SyntaxKind.numbertoken
+        assert parser_simple._peek(3).kind() == SyntaxKind.endoffiletoken
+        assert parser_simple._peek(4).kind() == SyntaxKind.endoffiletoken
 
     def test_current(self, parser_simple: Parser) -> None:
         assert parser_simple.current().kind() == SyntaxKind.numbertoken
@@ -20,7 +20,7 @@ class TestParser:
         assert parser_simple.current().kind() == SyntaxKind.endoffiletoken
 
     def test_matchToken(self, parser_simple: Parser) -> None:
-        token = parser_simple.match_token(SyntaxKind.endoffiletoken)
+        token = parser_simple._match_token(SyntaxKind.endoffiletoken)
         assert token.kind() == SyntaxKind.endoffiletoken
         expected_error = filter(
             lambda d: d.startswith(
@@ -42,7 +42,7 @@ class TestParser:
 
     def test_parsePrimaryExpression_simple(self) -> None:
         parser = Parser("2+3", 0)
-        literal_expression_syntax = parser.parse_primary_expression()
+        literal_expression_syntax = parser._parse_primary_expression()
         assert literal_expression_syntax.kind() == SyntaxKind.numbertoken
         assert literal_expression_syntax.literal_token.value == 2
 

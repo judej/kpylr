@@ -20,6 +20,7 @@ class SyntaxKind(Enum):
     closeparanthesistoken = (10,)
 
     # expressions
-    lieralexpression = (11,)
+    literalexpression = (11,)
     binaryexpression = (12,)
     paranthesizedexpression = (13,)
+    unaryexpression = (14,)

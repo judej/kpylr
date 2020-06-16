@@ -1,3 +1,4 @@
+from codeanalysis.unaryexpressionsyntax import UnaryExpressionSyntax
 from codeanalysis.syntaxfacts import SyntaxFacts
 from codeanalysis.expressionsyntax import ExpressionSyntax
 from codeanalysis.syntaxtree import SyntaxTree
@@ -30,21 +31,21 @@ class Parser:
                 break
             token = lex.lex()
 
-    def peek(self, offset: int) -> SyntaxToken:
+    def _peek(self, offset: int) -> SyntaxToken:
         if self.position + offset >= len(self.tokens):
             return self.tokens[-1]
 
         return self.tokens[self.position + offset]
 
     def current(self) -> SyntaxToken:
-        return self.peek(0)
+        return self._peek(0)
 
     def next_token(self) -> SyntaxToken:
         _current = self.current()
         self.position += 1
         return _current
 
-    def match_token(self, kind: SyntaxKind) -> SyntaxToken:
+    def _match_token(self, kind: SyntaxKind) -> SyntaxToken:
         if self.current().kind() == kind:
             return self.next_token()
         self.diagnostics.append(
@@ -55,12 +56,24 @@ class Parser:
     def parse(self) -> SyntaxTree:
         return SyntaxTree(
             self.diagnostics,
-            self.parse_expression(),
-            self.match_token(SyntaxKind.endoffiletoken),
+            self._parse_expression(),
+            self._match_token(SyntaxKind.endoffiletoken),
         )
 
-    def parse_expression(self, parent_precedence: int = 0) -> ExpressionSyntax:
-        left = self.parse_primary_expression()
+    def _parse_expression(self, parent_precedence: int = 0) -> ExpressionSyntax:
+        unary_operator_precedence = SyntaxFacts.get_unary_operator_precedence(
+            self.current().kind()
+        )
+
+        if (unary_operator_precedence != 0) and (
+            unary_operator_precedence >= parent_precedence
+        ):
+            operator_token = self.next_token()
+            operand = self._parse_expression(unary_operator_precedence)
+            left = UnaryExpressionSyntax(operator_token, operand)
+        else:
+            left = self._parse_primary_expression()
+
         while True:
             precedence = SyntaxFacts.get_binary_operator_precedence(
                 self.current().kind()
@@ -68,18 +81,18 @@ class Parser:
             if (precedence == 0) or (precedence <= parent_precedence):
                 break
             operator_token = self.next_token()
-            right = self.parse_expression(precedence)
+            right = self._parse_expression(precedence)
             left = BinaryExpressionSyntax(left, operator_token, right)
 
         return left
 
-    def parse_primary_expression(self) -> ExpressionSyntax:
+    def _parse_primary_expression(self) -> ExpressionSyntax:
         if self.current().kind() == SyntaxKind.openparanthesistoken:
             left = self.next_token()
-            expression = self.parse_expression()
-            right = self.match_token(SyntaxKind.closeparanthesistoken)
+            expression = self._parse_expression()
+            right = self._match_token(SyntaxKind.closeparanthesistoken)
             return ParanthesizedExpressionSyntax(left, expression, right)
 
-        literal_token = self.match_token(SyntaxKind.numbertoken)
+        literal_token = self._match_token(SyntaxKind.numbertoken)
         return LiteralExpressionSyntax(literal_token)
 
