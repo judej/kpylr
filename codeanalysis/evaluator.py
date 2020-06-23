@@ -3,9 +3,7 @@ from codeanalysis.syntax.expressionsyntax import ExpressionSyntax
 from codeanalysis.syntax.syntaxkind import SyntaxKind
 from codeanalysis.syntax.literalexpressionsyntax import LiteralExpressionSyntax
 from codeanalysis.syntax.binaryexpressionsyntax import BinaryExpressionSyntax
-from codeanalysis.syntax.paranthesizedexpressionsyntax import (
-    ParanthesizedExpressionSyntax,
-)
+from codeanalysis.syntax.paranthesizedexpressionsyntax import ParanthesizedExpressionSyntax
 
 
 class Evaluator:

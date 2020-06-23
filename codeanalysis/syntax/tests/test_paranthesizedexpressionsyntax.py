@@ -5,9 +5,7 @@ import pytest
 
 class TestParanthesizedExpressionSyntax:
     def test_kind(self, paranthesized_expression_simple) -> None:
-        assert (
-            paranthesized_expression_simple.kind() == SyntaxKind.paranthesizedexpression
-        )
+        assert paranthesized_expression_simple.kind() == SyntaxKind.paranthesizedexpression
 
     def test_getChildren(self, paranthesized_expression_simple) -> None:
         token_gernator = paranthesized_expression_simple.get_children()
@@ -19,8 +17,5 @@ class TestParanthesizedExpressionSyntax:
         assert str(excinfo) == "<ExceptionInfo StopIteration() tblen=1>"
 
     def test_getLastChild(self, paranthesized_expression_simple) -> None:
-        assert (
-            paranthesized_expression_simple.get_last_child().kind()
-            == SyntaxKind.closeparanthesistoken
-        )
+        assert paranthesized_expression_simple.get_last_child().kind() == SyntaxKind.closeparanthesistoken
 

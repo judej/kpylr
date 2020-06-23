@@ -4,9 +4,7 @@ from codeanalysis.syntax.literalexpressionsyntax import LiteralExpressionSyntax
 
 
 class TestLiteralExpressionSyntax:
-    def test_kind(
-        self, literal0: LiteralExpressionSyntax, literal1: LiteralExpressionSyntax
-    ) -> None:
+    def test_kind(self, literal0: LiteralExpressionSyntax, literal1: LiteralExpressionSyntax) -> None:
         assert literal0.kind() == SyntaxKind.numbertoken
 
     def test_getChildren(self, literal0: LiteralExpressionSyntax) -> None:

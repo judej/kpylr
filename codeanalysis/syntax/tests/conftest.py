@@ -1,8 +1,6 @@
 from codeanalysis.syntax.parser import Parser
 from codeanalysis.syntax.expressionsyntax import ExpressionSyntax
-from codeanalysis.syntax.paranthesizedexpressionsyntax import (
-    ParanthesizedExpressionSyntax,
-)
+from codeanalysis.syntax.paranthesizedexpressionsyntax import ParanthesizedExpressionSyntax
 from codeanalysis.syntax.binaryexpressionsyntax import BinaryExpressionSyntax
 from codeanalysis.syntax.syntaxkind import SyntaxKind
 from codeanalysis.syntax.syntaxtoken import SyntaxToken
@@ -56,9 +54,7 @@ def division_operator() -> SyntaxToken:
 
 
 @pytest.fixture
-def binary_expression_syntax_simple(
-    literal1, literal2, addition_operator
-) -> BinaryExpressionSyntax:
+def binary_expression_syntax_simple(literal1, literal2, addition_operator) -> BinaryExpressionSyntax:
     return BinaryExpressionSyntax(literal1, addition_operator, literal2)
 
 
@@ -67,14 +63,10 @@ def paranthesized_expression_simple(
     literal1, literal2, addition_operator, open_paranthesis, close_paranthesis
 ) -> ParanthesizedExpressionSyntax:
     return ParanthesizedExpressionSyntax(
-        open_paranthesis,
-        BinaryExpressionSyntax(literal1, addition_operator, literal2),
-        close_paranthesis,
+        open_paranthesis, BinaryExpressionSyntax(literal1, addition_operator, literal2), close_paranthesis,
     )
 
 
 @pytest.fixture
-def parser_simple(
-    literal1, literal2, addition_operator, open_paranthesis, close_paranthesis
-) -> Parser:
+def parser_simple(literal1, literal2, addition_operator, open_paranthesis, close_paranthesis) -> Parser:
     return Parser("2+3", 0)

@@ -2,9 +2,7 @@ from codeanalysis.syntax.unaryexpressionsyntax import UnaryExpressionSyntax
 from codeanalysis.syntax.syntaxfacts import SyntaxFacts
 from codeanalysis.syntax.expressionsyntax import ExpressionSyntax
 from codeanalysis.syntax.syntaxtree import SyntaxTree
-from codeanalysis.syntax.paranthesizedexpressionsyntax import (
-    ParanthesizedExpressionSyntax,
-)
+from codeanalysis.syntax.paranthesizedexpressionsyntax import ParanthesizedExpressionSyntax
 from codeanalysis.syntax.lexer import Lexer
 from codeanalysis.syntax.syntaxtoken import SyntaxToken
 from codeanalysis.syntax.syntaxkind import SyntaxKind
@@ -25,9 +23,7 @@ class Parser:
         token = lex.lex()
 
         while True:
-            if (token.kind() != SyntaxKind.badtoken) and (
-                token.kind() != SyntaxKind.whitespacetoken
-            ):
+            if (token.kind() != SyntaxKind.badtoken) and (token.kind() != SyntaxKind.whitespacetoken):
                 self.tokens.append(token)
             if token.kind() == SyntaxKind.endoffiletoken:
                 break
@@ -56,20 +52,12 @@ class Parser:
         return SyntaxToken(None, 0, kind, None)
 
     def parse(self) -> SyntaxTree:
-        return SyntaxTree(
-            self.diagnostics,
-            self._parse_expression(),
-            self._match_token(SyntaxKind.endoffiletoken),
-        )
+        return SyntaxTree(self.diagnostics, self._parse_expression(), self._match_token(SyntaxKind.endoffiletoken),)
 
     def _parse_expression(self, parent_precedence: int = 0) -> ExpressionSyntax:
-        unary_operator_precedence = SyntaxFacts.get_unary_operator_precedence(
-            self.current().kind()
-        )
+        unary_operator_precedence = SyntaxFacts.get_unary_operator_precedence(self.current().kind())
 
-        if (unary_operator_precedence != 0) and (
-            unary_operator_precedence >= parent_precedence
-        ):
+        if (unary_operator_precedence != 0) and (unary_operator_precedence >= parent_precedence):
             operator_token = self.next_token()
             operand = self._parse_expression(unary_operator_precedence)
             left = UnaryExpressionSyntax(operator_token, operand)
@@ -77,9 +65,7 @@ class Parser:
             left = self._parse_primary_expression()
 
         while True:
-            precedence = SyntaxFacts.get_binary_operator_precedence(
-                self.current().kind()
-            )
+            precedence = SyntaxFacts.get_binary_operator_precedence(self.current().kind())
             if (precedence == 0) or (precedence <= parent_precedence):
                 break
             operator_token = self.next_token()

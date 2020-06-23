@@ -9,12 +9,7 @@ class BinaryExpressionSyntax(ExpressionSyntax):
     """Binary expression syntax node that has a left SyntaxNode, an operator_token and a right syntax node
     """
 
-    def __init__(
-        self,
-        left: ExpressionSyntax,
-        operator_token: SyntaxToken,
-        right: ExpressionSyntax,
-    ) -> None:
+    def __init__(self, left: ExpressionSyntax, operator_token: SyntaxToken, right: ExpressionSyntax,) -> None:
         """Constructor for BinaryExpressionSyntax - left, operator and right
 
         :param left: An expression Syntax (could be another Binary Expression)

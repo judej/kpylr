@@ -57,39 +57,24 @@ class Lexer:
             return SyntaxToken("+", self.position - 1, SyntaxKind.additiontoken, None)
         elif self.current() == "-":
             self.next()
-            return SyntaxToken(
-                "-", self.position - 1, SyntaxKind.subtractiontoken, None
-            )
+            return SyntaxToken("-", self.position - 1, SyntaxKind.subtractiontoken, None)
         elif self.current() == "*":
             self.next()
-            return SyntaxToken(
-                "*", self.position - 1, SyntaxKind.multiplicationtoken, None
-            )
+            return SyntaxToken("*", self.position - 1, SyntaxKind.multiplicationtoken, None)
         elif self.current() == "/":
             self.next()
             return SyntaxToken("/", self.position - 1, SyntaxKind.divisiontoken, None)
         elif self.current() == "(":
             self.next()
-            return SyntaxToken(
-                "(", self.position - 1, SyntaxKind.openparanthesistoken, None
-            )
+            return SyntaxToken("(", self.position - 1, SyntaxKind.openparanthesistoken, None)
         elif self.current() == ")":
             self.next()
-            return SyntaxToken(
-                ")", self.position - 1, SyntaxKind.closeparanthesistoken, None
-            )
+            return SyntaxToken(")", self.position - 1, SyntaxKind.closeparanthesistoken, None)
         else:
-            self.diagnostics.append(
-                f"ERROR: Lexer:NextToken: bad character in input: {self.current()}"
-            )
+            self.diagnostics.append(f"ERROR: Lexer:NextToken: bad character in input: {self.current()}")
 
         self.next()
-        return SyntaxToken(
-            self.text[self.position - 1 : self.position],
-            self.current(),
-            SyntaxKind.badtoken,
-            None,
-        )
+        return SyntaxToken(self.text[self.position - 1 : self.position], self.current(), SyntaxKind.badtoken, None,)
 
     def current(self) -> str:
         """returns the character at the current position. '\0' if at end of the string

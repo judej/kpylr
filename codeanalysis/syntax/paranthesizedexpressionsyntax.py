@@ -7,10 +7,7 @@ from typing import Any, List
 
 class ParanthesizedExpressionSyntax(ExpressionSyntax):
     def __init__(
-        self,
-        openParansToken: SyntaxToken,
-        expression: ExpressionSyntax,
-        closeParansToken: SyntaxToken,
+        self, openParansToken: SyntaxToken, expression: ExpressionSyntax, closeParansToken: SyntaxToken,
     ) -> None:
         self.openParansToken = openParansToken
         self.expression = expression

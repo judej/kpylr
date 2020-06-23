@@ -23,10 +23,7 @@ class TestParser:
         token = parser_simple._match_token(SyntaxKind.endoffiletoken)
         assert token.kind() == SyntaxKind.endoffiletoken
         expected_error = filter(
-            lambda d: d.startswith(
-                "ERROR: Parser:Matchoken: unexpected token, Expected"
-            ),
-            parser_simple.diagnostics,
+            lambda d: d.startswith("ERROR: Parser:Matchoken: unexpected token, Expected"), parser_simple.diagnostics,
         )
         # assert len(expected_error) == 1
 
