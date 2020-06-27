@@ -1,4 +1,3 @@
-from typing import List
 from codeanalysis.syntax.syntaxtoken import SyntaxToken
 from codeanalysis.syntax.syntaxkind import SyntaxKind
 
@@ -26,56 +25,57 @@ class Lexer:
         """
         # looking for +, -, *, /, (, ), .whitespace
         if self.position >= len(self.text):
-            return SyntaxToken("\0", self.current(), SyntaxKind.endoffiletoken, "\0")
+            return SyntaxToken("\0", self.position, SyntaxKind.endoffiletoken, "\0")
 
-        if self.current().isnumeric():
+        if self.current.isnumeric():
             start = self.position
-            while self.current().isnumeric():
+            while self.current.isnumeric():
                 self.next()
             length = self.position - start
             tokentext = self.text[start : start + length]
             tokenvalue = 0
             try:
                 tokenvalue = int(tokentext)
-            except ValueError as ex:
+            except ValueError:
                 self.diagnostics.append(
                     f"ERROR: Lexer:NextToken: the token {tokentext} cannot be represented as an int"
                 )
 
             return SyntaxToken(tokentext, start, SyntaxKind.numbertoken, tokenvalue)
 
-        if self.current().isspace():
+        if self.current.isspace():
             start = self.position
-            while self.current().isspace():
+            while self.current.isspace():
                 self.next()
             length = self.position - start
             tokentext = self.text[start : start + length]
             return SyntaxToken(tokentext, start, SyntaxKind.whitespacetoken, tokentext)
 
-        if self.current() == "+":
+        if self.current == "+":
             self.next()
             return SyntaxToken("+", self.position - 1, SyntaxKind.additiontoken, None)
-        elif self.current() == "-":
+        elif self.current == "-":
             self.next()
             return SyntaxToken("-", self.position - 1, SyntaxKind.subtractiontoken, None)
-        elif self.current() == "*":
+        elif self.current == "*":
             self.next()
             return SyntaxToken("*", self.position - 1, SyntaxKind.multiplicationtoken, None)
-        elif self.current() == "/":
+        elif self.current == "/":
             self.next()
             return SyntaxToken("/", self.position - 1, SyntaxKind.divisiontoken, None)
-        elif self.current() == "(":
+        elif self.current == "(":
             self.next()
             return SyntaxToken("(", self.position - 1, SyntaxKind.openparanthesistoken, None)
-        elif self.current() == ")":
+        elif self.current == ")":
             self.next()
             return SyntaxToken(")", self.position - 1, SyntaxKind.closeparanthesistoken, None)
         else:
-            self.diagnostics.append(f"ERROR: Lexer:NextToken: bad character in input: {self.current()}")
+            self.diagnostics.append(f"ERROR: Lexer:NextToken: bad character in input: {self.current}")
 
         self.next()
-        return SyntaxToken(self.text[self.position - 1 : self.position], self.current(), SyntaxKind.badtoken, None,)
+        return SyntaxToken(self.text[self.position - 1 : self.position], self.position, SyntaxKind.badtoken, None,)
 
+    @property
     def current(self) -> str:
         """returns the character at the current position. '\0' if at end of the string
 

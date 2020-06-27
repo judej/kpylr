@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from codeanalysis.syntax.syntaxkind import SyntaxKind
-from typing import Any, List
+from typing import Any, Iterator
 
 
 class SyntaxNode(ABC):
@@ -14,15 +14,16 @@ class SyntaxNode(ABC):
     @property
     @abstractmethod
     def kind(self) -> SyntaxKind:
+        """Every derived class must state what kind of token it is.
+        """
         pass
 
-    """Every derived class must state what kind of token it is.
-    """
-
-    @property
     @abstractmethod
-    def get_children(self) -> List[Any]:
+    def get_children(self) -> Iterator[Any]:
+        """A node may have children
+        """
         pass
 
-    """A node may have children
-    """
+    @abstractmethod
+    def get_last_child(self) -> Any:
+        pass

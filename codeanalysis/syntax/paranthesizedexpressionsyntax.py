@@ -2,7 +2,7 @@ from codeanalysis.syntax.syntaxtoken import SyntaxToken
 from codeanalysis.syntax.syntaxnode import SyntaxNode
 from codeanalysis.syntax.syntaxkind import SyntaxKind
 from codeanalysis.syntax.expressionsyntax import ExpressionSyntax
-from typing import Any, List
+from typing import Iterator
 
 
 class ParanthesizedExpressionSyntax(ExpressionSyntax):
@@ -13,10 +13,11 @@ class ParanthesizedExpressionSyntax(ExpressionSyntax):
         self.expression = expression
         self.closeParansToken = closeParansToken
 
+    @property
     def kind(self):
         return SyntaxKind.paranthesizedexpression
 
-    def get_children(self) -> List[SyntaxNode]:
+    def get_children(self) -> Iterator[SyntaxNode]:
         """returns the children of a binary expression 
 
         :return: iterable of left, operator and right of the binary expression

@@ -1,13 +1,13 @@
 from codeanalysis.syntax.syntaxnode import SyntaxNode
 from codeanalysis.syntax.syntaxkind import SyntaxKind
-from typing import Any, List
+from typing import Any, Iterator, Union
 
 
 class SyntaxToken(SyntaxNode):
     """Base class for all Syntax Tokens
     """
 
-    def __init__(self, text: str, position: int, kind: SyntaxKind, value: Any) -> None:
+    def __init__(self, text: Union[str, None], position: int, kind: SyntaxKind, value: Any) -> None:
         """Create a Syntax token
 
         :text: The line to be tokenized
@@ -21,12 +21,13 @@ class SyntaxToken(SyntaxNode):
         self.value = value
         return
 
-    def get_children(self) -> List[SyntaxNode]:
+    def get_children(self) -> Union[Iterator[SyntaxNode], Iterator[None]]:
         yield None
 
+    @property
     def kind(self) -> SyntaxKind:
         return self.tokenkind
 
-    def get_last_child(self) -> SyntaxNode:
+    def get_last_child(self) -> Union[SyntaxNode, None]:
         return None
 

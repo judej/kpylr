@@ -1,8 +1,7 @@
-from codeanalysis.evaluator import Evaluator
-from codeanalysis.syntax.syntaxtree import SyntaxTree
-from codeanalysis.syntax.parser import Parser
 from codeanalysis.syntax.syntaxnode import SyntaxNode
-from codeanalysis.syntax.syntaxkind import SyntaxKind
+from typing import Union
+from codeanalysis.evaluator import Evaluator
+from codeanalysis.syntax.parser import Parser
 from codeanalysis.syntax.syntaxtoken import SyntaxToken
 
 # minimal compiler
@@ -14,23 +13,26 @@ from codeanalysis.syntax.syntaxtoken import SyntaxToken
 # │   └── code.h
 
 
-def pretty_print(node: SyntaxNode, indent: str = "", isLast: bool = True) -> None:
+def pretty_print(node: Union[SyntaxNode, SyntaxToken], indent: str = "", isLast: bool = True) -> None:
     if not node:
         return
 
     marker = "└──" if isLast else "├──"
 
-    if isinstance(node, SyntaxToken) and (node.value):
-        print(f'{indent}{marker}{node.kind()}{"  "}{node.value}')
+    if isinstance(node, SyntaxToken):
+        if node.value:
+            print(f'{indent}{marker}{node.kind}{"  "}{node.value}')
+        else:
+            print(f"{indent}{marker}{node.kind}")
     else:
-        print(f"{indent}{marker}{node.kind()}")
+        print(f"{indent}{marker}{node.kind}")
 
-    indent += "    " if isLast else "│    "
+        indent += "    " if isLast else "│    "
 
-    lastChild = node.get_last_child()
+        lastChild = node.get_last_child()
 
-    for child in node.get_children():
-        pretty_print(child, indent, child == lastChild)
+        for child in node.get_children():
+            pretty_print(child, indent, child == lastChild)
 
 
 while True:

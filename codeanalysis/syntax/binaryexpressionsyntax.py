@@ -1,4 +1,4 @@
-from typing import List
+from typing import Iterator
 from codeanalysis.syntax.syntaxtoken import SyntaxToken
 from codeanalysis.syntax.syntaxnode import SyntaxNode
 from codeanalysis.syntax.syntaxkind import SyntaxKind
@@ -21,10 +21,11 @@ class BinaryExpressionSyntax(ExpressionSyntax):
         self.right = right
         return
 
-    def kind(self):
+    @property
+    def kind(self) -> SyntaxKind:
         return SyntaxKind.binaryexpression
 
-    def get_children(self) -> List[SyntaxNode]:
+    def get_children(self) -> Iterator[SyntaxNode]:
         """returns the children of a binary expression 
 
         :return: iterable of left, operator and right of the binary expression

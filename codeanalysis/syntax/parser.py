@@ -23,9 +23,9 @@ class Parser:
         token = lex.lex()
 
         while True:
-            if (token.kind() != SyntaxKind.badtoken) and (token.kind() != SyntaxKind.whitespacetoken):
+            if (token.kind != SyntaxKind.badtoken) and (token.kind != SyntaxKind.whitespacetoken):
                 self.tokens.append(token)
-            if token.kind() == SyntaxKind.endoffiletoken:
+            if token.kind == SyntaxKind.endoffiletoken:
                 break
             token = lex.lex()
 
@@ -44,10 +44,10 @@ class Parser:
         return _current
 
     def _match_token(self, kind: SyntaxKind) -> SyntaxToken:
-        if self.current().kind() == kind:
+        if self.current().kind == kind:
             return self.next_token()
         self.diagnostics.append(
-            f"ERROR: Parser:Matchoken: unexpected token, Expected {kind}, found {self.current().kind()}"
+            f"ERROR: Parser:Matchoken: unexpected token, Expected {kind}, found {self.current().kind}"
         )
         return SyntaxToken(None, 0, kind, None)
 
@@ -55,7 +55,7 @@ class Parser:
         return SyntaxTree(self.diagnostics, self._parse_expression(), self._match_token(SyntaxKind.endoffiletoken),)
 
     def _parse_expression(self, parent_precedence: int = 0) -> ExpressionSyntax:
-        unary_operator_precedence = SyntaxFacts.get_unary_operator_precedence(self.current().kind())
+        unary_operator_precedence = SyntaxFacts.get_unary_operator_precedence(self.current().kind)
 
         if (unary_operator_precedence != 0) and (unary_operator_precedence >= parent_precedence):
             operator_token = self.next_token()
@@ -65,7 +65,7 @@ class Parser:
             left = self._parse_primary_expression()
 
         while True:
-            precedence = SyntaxFacts.get_binary_operator_precedence(self.current().kind())
+            precedence = SyntaxFacts.get_binary_operator_precedence(self.current().kind)
             if (precedence == 0) or (precedence <= parent_precedence):
                 break
             operator_token = self.next_token()
@@ -75,7 +75,7 @@ class Parser:
         return left
 
     def _parse_primary_expression(self) -> ExpressionSyntax:
-        if self.current().kind() == SyntaxKind.openparanthesistoken:
+        if self.current().kind == SyntaxKind.openparanthesistoken:
             left = self.next_token()
             expression = self._parse_expression()
             right = self._match_token(SyntaxKind.closeparanthesistoken)

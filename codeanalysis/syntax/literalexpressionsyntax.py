@@ -1,4 +1,4 @@
-from typing import List
+from typing import Iterator
 from codeanalysis.syntax.syntaxtoken import SyntaxToken
 from codeanalysis.syntax.syntaxnode import SyntaxNode
 from codeanalysis.syntax.syntaxkind import SyntaxKind
@@ -14,10 +14,11 @@ class LiteralExpressionSyntax(ExpressionSyntax):
         self.literal_token = literal_token
         return
 
-    def kind(self):
+    @property
+    def kind(self) -> SyntaxKind:
         return SyntaxKind.numbertoken
 
-    def get_children(self) -> List[SyntaxNode]:
+    def get_children(self) -> Iterator[SyntaxNode]:
         yield self.literal_token
 
     def get_last_child(self) -> SyntaxNode:
